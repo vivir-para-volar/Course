@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_authorization_registration"
+    android:backgroundTintMode="src_over"
+    tools:context=".controllers.authorization.AuthorizationActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="25dp">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_net"
+            android:textSize="70sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/main_fraze_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_fraze"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_username"
+            style="@style/text_input_layout"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_fraze_text">
+
+            <EditText
+                android:id="@+id/edit_text_username"
+                style="@style/edit_text"
+                android:hint="@string/hint_username" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_password"
+            style="@style/text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/edit_text_password"
+                style="@style/edit_text"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btn_authorization"
+            style="@style/button_authorization_registration"
+            android:layout_marginTop="30dp"
+            android:text="@string/btn_authorization"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
+
+        <TextView
+            android:id="@+id/text_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:gravity="end"
+            android:paddingVertical="10dp"
+            android:text="@string/text_for_registration_question"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/text_link"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_authorization" />
+
+        <TextView
+            android:id="@+id/text_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:linksClickable="true"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_registration"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/text_question"
+            app:layout_constraintTop_toBottomOf="@+id/btn_authorization" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">AppNetworkForPhotographers</string>
+
+    <!-- Authorization/Registration -->
+    <string name="name_net">Moment</string>
+    <string name="main_fraze">share your memories</string>
+    <string name="text_for_registration_question">Don\'t have an account?</string>
+    <string name="btn_authorization">Log In</string>
+
+    <string name="registration">Registration</string>
+    <string name="text_for_authorization_question">Already have an account?</string>
+    <string name="btn_registration">Sign Up</string>
+    <string name="error_password">Passwords don\'t match</string>
+
+    <!-- Hint For Photographer-->
+    <string name="hint_name">Surname and name</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_birthday">Birthday</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+
+    <string name="empty_name">Enter surname and name</string>
+    <string name="empty_username">Enter username</string>
+    <string name="empty_email">Enter email</string>
+    <string name="empty_password">Enter password</string>
+
+    <!-- Bottom Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_add_post">Add Post</string>
+    <string name="menu_messenger">Messenger</string>
+    <string name="menu_profile">Profile</string>
+
+    <!-- Profile -->
+    <string name="btn_subscribe">Subscribe</string>
+    <string name="btn_unsubscribe">Unsubscribe</string>
+    <!-- Profile Menu -->
+    <string name="menu_edit_profile">Edit profile</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_exit">Exit</string>
+
+    <!-- Edit Profile -->
+    <string name="title_edit_profile">Edit profile</string>
+    <string name="btn_change_photo">Change photo</string>
+    <string name="btn_change_profile">Change profile</string>
+    <string name="success_change_profile">Profile changed successfully</string>
+
+
+    <!-- Database -->
+    <string name="error_update_database">Unable to update database</string>
+
+    <string name="error_authorization">Incorrect username or password entered</string>
+    <string name="error_registration">An error occurred during registration. Try again</string>
+    <string name="error_unique_username">This username is already in use</string>
+    <string name="error_unique_email">This email is already in use</string>
+
+    <string name="error_edit_profile">An error occurred while changing the profile. Try again</string>
+</resources>

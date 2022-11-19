@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_authorization_registration"
+    android:backgroundTintMode="src_over"
+    tools:context=".controllers.authorization.RegistrationActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registration"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_username"
+            style="@style/text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text">
+
+            <EditText
+                android:id="@+id/edit_text_username"
+                style="@style/edit_text"
+                android:hint="@string/hint_username" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_name"
+            style="@style/text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username">
+
+            <EditText
+                android:id="@+id/edit_text_name"
+                style="@style/edit_text"
+                android:hint="@string/hint_name" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_birthday"
+            style="@style/text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_name">
+
+            <EditText
+                android:id="@+id/edit_text_birthday"
+                style="@style/edit_text"
+                android:enabled="false"
+                android:hint="@string/hint_birthday" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/btn_change_birthday"
+            style="@style/image_btn_date"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_name" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_email"
+            style="@style/text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_birthday">
+
+            <EditText
+                android:id="@+id/edit_text_email"
+                style="@style/edit_text"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_password"
+            style="@style/text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/edit_text_password"
+                style="@style/edit_text"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_confirm_password"
+            style="@style/text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/edit_text_confirm_password"
+                style="@style/edit_text"
+                android:hint="@string/hint_confirm_password"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_registration"
+            style="@style/button_authorization_registration"
+            android:layout_marginTop="30dp"
+            android:text="@string/btn_registration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_confirm_password" />
+
+        <TextView
+            android:id="@+id/text_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="end"
+            android:text="@string/text_for_authorization_question"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/text_link"
+            app:layout_constraintHorizontal_weight="2.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_registration" />
+
+        <TextView
+            android:id="@+id/text_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:linksClickable="true"
+            android:text="@string/btn_authorization"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/text_question"
+            app:layout_constraintTop_toBottomOf="@+id/btn_registration" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
