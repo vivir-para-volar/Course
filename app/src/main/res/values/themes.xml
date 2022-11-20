@@ -39,7 +39,7 @@
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
-    <style name="icon">
+    <style name="toolbar_icon">
         <item name="android:layout_width">?attr/actionBarSize</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">#00000000</item>

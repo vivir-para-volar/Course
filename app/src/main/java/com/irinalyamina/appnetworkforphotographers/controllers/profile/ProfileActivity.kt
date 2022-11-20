@@ -43,8 +43,8 @@ class ProfileActivity : AppCompatActivity() {
                     overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }
-                R.id.nav_add_post -> {
-                    startActivity(Intent(applicationContext, AddPostActivity::class.java))
+                R.id.nav_map -> {
+                    startActivity(Intent(applicationContext, MapActivity::class.java))
                     overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.controllers.addpost.AddPostActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityMessengerBinding
 
@@ -18,8 +19,12 @@ class MessengerActivity : AppCompatActivity() {
         binding = ActivityMessengerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        onCreateBottomNavigationView()
+    }
+
+    private fun onCreateBottomNavigationView(){
         val bottomNavView: BottomNavigationView = binding.bottomNavView
-        bottomNavView.selectedItemId = R.id.nav_messenger
+        bottomNavView.selectedItemId = R.id.nav_profile
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -33,8 +38,8 @@ class MessengerActivity : AppCompatActivity() {
                     overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }
-                R.id.nav_add_post -> {
-                    startActivity(Intent(applicationContext, AddPostActivity::class.java))
+                R.id.nav_map -> {
+                    startActivity(Intent(applicationContext, MapActivity::class.java))
                     overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }

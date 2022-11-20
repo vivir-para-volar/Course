@@ -23,7 +23,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var editTextBirthday: TextView
     private lateinit var editTextEmail: TextView
 
-    private lateinit var profileImage: ImageView
+    private lateinit var profilePhoto: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class EditProfileActivity : AppCompatActivity() {
         editTextBirthday = binding.editTextBirthday
         editTextEmail = binding.editTextEmail
 
-        profileImage = binding.profileImage
+        profilePhoto = binding.profileImage
 
         Parse.onDatePicker(this, binding.editTextBirthday, binding.btnChangeBirthday)
 
@@ -64,6 +64,12 @@ class EditProfileActivity : AppCompatActivity() {
         editTextName.text = user.name
         editTextBirthday.text = Parse.dateToString(user.birthday)
         editTextEmail.text = user.email
+
+        val userService = UserService(this)
+        val photo = userService.getProfilePhoto(user)
+        if(photo != null){
+            profilePhoto.setImageBitmap(photo)
+        }
     }
 
     private fun btnChangeProfileOnClickListener() {
@@ -115,7 +121,7 @@ class EditProfileActivity : AppCompatActivity() {
             val answer = service.editProfilePhoto((selectedImage))
 
             if(answer){
-                profileImage.setImageURI(selectedImage)
+                profilePhoto.setImageURI(selectedImage)
             }
         }
     }

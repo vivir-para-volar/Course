@@ -18,8 +18,12 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        onCreateBottomNavigationView()
+    }
+
+    private fun onCreateBottomNavigationView(){
         val bottomNavView: BottomNavigationView = binding.bottomNavView
-        bottomNavView.selectedItemId = R.id.nav_home
+        bottomNavView.selectedItemId = R.id.nav_profile
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -31,8 +35,8 @@ class HomeActivity : AppCompatActivity() {
                     overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }
-                R.id.nav_add_post -> {
-                    startActivity(Intent(applicationContext, AddPostActivity::class.java))
+                R.id.nav_map -> {
+                    startActivity(Intent(applicationContext, MapActivity::class.java))
                     overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }

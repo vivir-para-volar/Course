@@ -1,7 +1,9 @@
 package com.irinalyamina.appnetworkforphotographers.service
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
+import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.database.DatabaseUser
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
@@ -49,6 +51,20 @@ class UserService(private var context: Context) {
         }
     }
 
+    fun getProfilePhoto(photographer: Photographer): Bitmap?{
+        if(photographer.pathProfilePhoto == null){
+            return null
+        }
+
+        return try {
+            val imageProcessing = ImageProcessing(context)
+            return imageProcessing.getPhoto(photographer.pathProfilePhoto!!)
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            null
+        }
+    }
+
     fun editProfile(changedUser: Photographer): Boolean {
         return try {
             database.checkForUniqueness(changedUser)
@@ -62,7 +78,12 @@ class UserService(private var context: Context) {
 
     fun editProfilePhoto(image: Uri): Boolean {
         return try {
-            database.editPathProfilePhoto("")
+            val id: Int = getCurrentUser().id!!
+
+            val imageProcessing = ImageProcessing(context)
+            val path = imageProcessing.savePhotoProfile(image, id)
+
+            database.editPathProfilePhoto(path)
             true
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
