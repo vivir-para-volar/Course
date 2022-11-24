@@ -31,6 +31,8 @@
     <string name="menu_map">Map</string>
     <string name="menu_messenger">Messenger</string>
     <string name="menu_profile">Profile</string>
+    <string name="menu_add_post">Add post</string>
+    <string name="menu_add_blog">Add blog</string>
 
     <!-- Profile -->
     <string name="btn_subscribe">Subscribe</string>
@@ -45,21 +47,37 @@
     <string name="btn_change_photo">Change photo</string>
     <string name="btn_change_profile">Change profile</string>
     <string name="success_change_profile">Profile changed successfully</string>
+    <string name="success_change_profile_photo">Profile photo changed successfully</string>
 
     <!-- Add Post -->
     <string name="title_add_post">Add post</string>
     <string name="btn_load_photo">Load photo</string>
+    <string name="hint_caption">Caption</string>
+    <string name="btn_save_post">Save post</string>
+    <string name="empty_photo_post">Load photo</string>
+    <string name="empty_caption">Enter caption</string>
+    <string name="success_add_post">Post added successfully</string>
+
+    <!-- Add Blog -->
+    <string name="title_add_blog">Add blog</string>
+
 
 
     <!-- Database -->
     <string name="error_update_database">Unable to update database</string>
 
     <string name="error_authorization">Incorrect username or password entered</string>
-    <string name="error_registration">An error occurred during registration. Try again</string>
+    <string name="error_registration">Registration error. Try again</string>
     <string name="error_unique_username">This username is already in use</string>
     <string name="error_unique_email">This email is already in use</string>
 
+    <string name="error_get_photo">Error getting photo. Try again</string>
+
     <string name="error_edit_profile">Error when changing profile. Try again</string>
     <string name="error_edit_profile_photo">Error when changing profile photo. Try again</string>
-    <string name="error_get_profile_photo">Error getting profile photo. Try again</string>
+
+    <string name="error_add_post">Error adding post. Try again</string>
+    <string name="error_add_photo_post">Error when adding photo to post. Try again</string>
+    <string name="error_edit_post">Error when changing post. Try again</string>
+    <string name="error_delete_post">Error when deleting a post. Try again</string>
 </resources>

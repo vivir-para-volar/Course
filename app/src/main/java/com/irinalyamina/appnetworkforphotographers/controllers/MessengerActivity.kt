@@ -24,7 +24,7 @@ class MessengerActivity : AppCompatActivity() {
 
     private fun onCreateBottomNavigationView(){
         val bottomNavView: BottomNavigationView = binding.bottomNavView
-        bottomNavView.selectedItemId = R.id.nav_profile
+        bottomNavView.selectedItemId = R.id.nav_messenger
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {

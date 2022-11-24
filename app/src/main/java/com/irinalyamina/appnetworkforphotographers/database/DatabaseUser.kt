@@ -14,10 +14,10 @@ import java.sql.SQLException
 class DatabaseUser(private var context: Context) {
 
     companion object {
-        var user = Photographer()
+        var user: Photographer? = null
 
         fun clearUser(){
-            user = Photographer()
+            user = null
         }
     }
 
@@ -48,12 +48,15 @@ class DatabaseUser(private var context: Context) {
         }
 
         cursor.moveToFirst()
-        user.id = cursor.getInt(0)
-        user.username = cursor.getString(1)
-        user.name = cursor.getString(2)
-        user.birthday = Parse.stringToDate(cursor.getString(3))
-        user.email = cursor.getString(4)
-        user.pathProfilePhoto = cursor.getString(5)
+
+        val id = cursor.getInt(0)
+        val username = cursor.getString(1)
+        val name = cursor.getString(2)
+        val birthday = Parse.stringToDate(cursor.getString(3))
+        val email = cursor.getString(4)
+        val pathProfilePhoto = cursor.getString(5)
+
+        user = Photographer(id, username, name, birthday, email, pathProfilePhoto)
     }
 
     fun registration(newUser: Photographer) {
@@ -64,10 +67,9 @@ class DatabaseUser(private var context: Context) {
         cv.put("Email", newUser.email)
         cv.put("Password", newUser.password)
 
-        val cursor: Long = db.insert("Photographers", null, cv)
+        val id: Long = db.insert("Photographers", null, cv)
 
-        val l: Long = -1
-        if (cursor == l) {
+        if (id == -1L) {
             throw Exception(context.getString(R.string.error_registration))
         }
     }
@@ -95,33 +97,33 @@ class DatabaseUser(private var context: Context) {
         }
     }
 
-    fun editUser(changedUser: Photographer){
+    fun updateUser(changedUser: Photographer){
         val cv = ContentValues()
         cv.put("Username", changedUser.username)
         cv.put("Name", changedUser.name)
         cv.put("Birthday", Parse.dateToString(changedUser.birthday))
         cv.put("Email", changedUser.email)
 
-        val cursor: Int = db.update("Photographers", cv, "Id=?", arrayOf(user.id.toString()))
-        if(cursor == -1){
+        val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(user?.id.toString()))
+        if(count == 0){
             throw Exception(context.getString(R.string.error_edit_profile))
         }
 
-        user.username = changedUser.username
-        user.name = changedUser.name
-        user.birthday = changedUser.birthday
-        user.email = changedUser.email
+        user?.username = changedUser.username
+        user?.name = changedUser.name
+        user?.birthday = changedUser.birthday
+        user?.email = changedUser.email
     }
 
-    fun editPathProfilePhoto(pathProfilePhoto: String){
+    fun updatePathProfilePhoto(pathProfilePhoto: String){
         val cv = ContentValues()
         cv.put("PathProfilePhoto", pathProfilePhoto)
 
-        val cursor: Int = db.update("Photographers", cv, "Id=?", arrayOf(user.id.toString()))
-        if(cursor == -1){
+        val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(user?.id.toString()))
+        if(count == 0){
             throw Exception(context.getString(R.string.error_edit_profile))
         }
 
-        user.pathProfilePhoto = pathProfilePhoto
+        user?.pathProfilePhoto = pathProfilePhoto
     }
 }

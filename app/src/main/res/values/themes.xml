@@ -42,7 +42,7 @@
     <style name="toolbar_icon">
         <item name="android:layout_width">?attr/actionBarSize</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:background">#00000000</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:padding">10dp</item>
     </style>
 
@@ -75,8 +75,19 @@
     <style name="edit_text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">#00000000</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="edit_text_multiline">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lines">8</item>
+        <item name="android:minLines">6</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:scrollbars">vertical</item>
     </style>
 
 
@@ -98,7 +109,7 @@
     </style>
 
     <style name="image_btn_date">
-        <item name="android:backgroundTint">#00000000</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:src">@drawable/ic_date_black</item>
     </style>
 

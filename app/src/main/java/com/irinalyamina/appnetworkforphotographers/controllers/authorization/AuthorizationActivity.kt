@@ -15,18 +15,11 @@ class AuthorizationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthorizationBinding
 
-    private lateinit var editTextUsername: EditText
-    private lateinit var editTextPassword: EditText
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityAuthorizationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        editTextUsername = binding.editTextUsername
-        editTextPassword = binding.editTextPassword
-
 
         binding.textLink.setOnClickListener {
             startActivity(Intent(this, RegistrationActivity::class.java))
@@ -42,8 +35,8 @@ class AuthorizationActivity : AppCompatActivity() {
     }
 
     private fun btnAuthorizationOnClickListener() {
-        val username = editTextUsername.text.toString().trim()
-        val password = editTextPassword.text.toString().trim()
+        val username = binding.editTextUsername.text.toString().trim()
+        val password = binding.editTextPassword.text.toString().trim()
 
         if (username.isEmpty()) {
             ShowMessage.toast(this, getString(R.string.empty_username))

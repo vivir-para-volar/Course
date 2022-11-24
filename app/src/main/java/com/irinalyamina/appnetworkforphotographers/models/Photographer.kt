@@ -11,16 +11,6 @@ class Photographer {
     var password: String?
     var pathProfilePhoto: String?
 
-    constructor() {
-        id = null
-        username = ""
-        name = ""
-        birthday = LocalDate.now()
-        email = ""
-        password = null
-        pathProfilePhoto = null
-    }
-
     constructor(
         username: String,
         name: String,
@@ -39,7 +29,7 @@ class Photographer {
     }
 
     constructor(
-        id: Int?,
+        id: Int,
         username: String,
         name: String,
         birthday: LocalDate,
@@ -55,5 +45,4 @@ class Photographer {
 
         this.password = null
     }
-
 }

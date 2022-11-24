@@ -3,9 +3,9 @@ package com.irinalyamina.appnetworkforphotographers.service
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.database.DatabaseUser
+import com.irinalyamina.appnetworkforphotographers.database.ImageProcessing
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
 
 class UserService(private var context: Context) {
@@ -22,7 +22,7 @@ class UserService(private var context: Context) {
 
     companion object{
         fun getCurrentUser(): Photographer {
-            return DatabaseUser.user
+            return DatabaseUser.user!!
         }
 
         fun clearCurrentUser() {
@@ -58,7 +58,7 @@ class UserService(private var context: Context) {
 
         return try {
             val imageProcessing = ImageProcessing(context)
-            return imageProcessing.getPhoto(photographer.pathProfilePhoto!!)
+            imageProcessing.getPhoto(photographer.pathProfilePhoto!!)
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
             null
@@ -68,7 +68,7 @@ class UserService(private var context: Context) {
     fun editProfile(changedUser: Photographer): Boolean {
         return try {
             database.checkForUniqueness(changedUser)
-            database.editUser(changedUser)
+            database.updateUser(changedUser)
             true
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
@@ -83,7 +83,7 @@ class UserService(private var context: Context) {
             val imageProcessing = ImageProcessing(context)
             val path = imageProcessing.savePhotoProfile(image, id)
 
-            database.editPathProfilePhoto(path)
+            database.updatePathProfilePhoto(path)
             true
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)

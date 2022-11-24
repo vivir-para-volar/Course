@@ -15,25 +15,11 @@ class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
 
-    private lateinit var editTextUsername: EditText
-    private lateinit var editTextName: EditText
-    private lateinit var editTextBirthday: EditText
-    private lateinit var editTextEmail: EditText
-    private lateinit var editTextPassword: EditText
-    private lateinit var editTextConfirmPassword: EditText
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        editTextUsername = binding.editTextUsername
-        editTextName = binding.editTextName
-        editTextBirthday = binding.editTextBirthday
-        editTextEmail = binding.editTextEmail
-        editTextPassword = binding.editTextPassword
-        editTextConfirmPassword = binding.editTextConfirmPassword
 
         binding.textLink.setOnClickListener {
             startActivity(Intent(this, AuthorizationActivity::class.java))
@@ -46,12 +32,12 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun btnRegistrationOnClickListener() {
-        val username = editTextUsername.text.toString().trim()
-        val name = editTextName.text.toString().trim()
-        val birthday = Parse.stringToDate(editTextBirthday.text.toString())
-        val email = editTextEmail.text.toString().trim()
-        val password = editTextPassword.text.toString().trim()
-        val confirmPassword = editTextConfirmPassword.text.toString().trim()
+        val username = binding.editTextUsername.text.toString().trim()
+        val name = binding.editTextName.text.toString().trim()
+        val birthday = Parse.stringToDate(binding.editTextBirthday.text.toString())
+        val email = binding.editTextEmail.text.toString().trim()
+        val password = binding.editTextPassword.text.toString().trim()
+        val confirmPassword = binding.editTextConfirmPassword.text.toString().trim()
 
         if (username.isEmpty()) {
             ShowMessage.toast(this, getString(R.string.empty_username))

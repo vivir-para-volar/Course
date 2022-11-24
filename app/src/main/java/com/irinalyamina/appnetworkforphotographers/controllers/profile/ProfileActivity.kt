@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.controllers.*
+import com.irinalyamina.appnetworkforphotographers.controllers.addpost.AddBlogActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.addpost.AddPostActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.authorization.AuthorizationActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityProfileBinding
 import com.irinalyamina.appnetworkforphotographers.service.UserService
@@ -68,6 +70,14 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menu_add_post -> {
+                startActivity(Intent(this, AddPostActivity::class.java))
+                return true
+            }
+            R.id.menu_add_blog -> {
+                startActivity(Intent(this, AddBlogActivity::class.java))
+                return true
+            }
             R.id.menu_edit_profile -> {
                 startActivity(Intent(this, EditProfileActivity::class.java))
                 return true

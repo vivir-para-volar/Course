@@ -1,4 +1,4 @@
-package com.irinalyamina.appnetworkforphotographers.service
+package com.irinalyamina.appnetworkforphotographers.database
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -25,7 +25,7 @@ class ImageProcessing (private var context: Context) {
     }
 
     fun savePhotoProfile(uri: Uri, id: Int): String {
-        val dir = File("$mainDir/profile/$id")
+        val dir = File("$mainDir/photos/profile/$id")
         val fileName = "profile.jpg"
 
         try{
@@ -35,7 +35,21 @@ class ImageProcessing (private var context: Context) {
             throw Exception(context.getString(R.string.error_edit_profile_photo))
         }
 
-        return "/profile/$id/profile.jpg"
+        return "/photos/profile/$id/$fileName"
+    }
+
+    fun savePhotoPost(bitmap: Bitmap, id: Int): String {
+        val dir = File("$mainDir/photos/post/$id")
+        val fileName = "post.jpg"
+
+        try{
+            writeImage(bitmap, dir, fileName)
+        }
+        catch (exp: Exception){
+            throw Exception(context.getString(R.string.error_add_photo_post))
+        }
+
+        return "/photos/post/$id/$fileName"
     }
 
     fun getPhoto(path: String): Bitmap {
@@ -50,7 +64,7 @@ class ImageProcessing (private var context: Context) {
             return BitmapFactory.decodeByteArray(content, 0, content.size)
         }
         catch (exp: Exception){
-            throw Exception(context.getString(R.string.error_get_profile_photo))
+            throw Exception(context.getString(R.string.error_get_photo))
         }
     }
 

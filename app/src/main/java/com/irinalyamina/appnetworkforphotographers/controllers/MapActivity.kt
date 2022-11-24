@@ -6,16 +6,15 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
-import com.irinalyamina.appnetworkforphotographers.databinding.ActivitySearchBinding
+import com.irinalyamina.appnetworkforphotographers.databinding.ActivityMapBinding
 
-class SearchActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivitySearchBinding
+class MapActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMapBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySearchBinding.inflate(layoutInflater)
+        binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         onCreateBottomNavigationView()
@@ -23,7 +22,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun onCreateBottomNavigationView(){
         val bottomNavView: BottomNavigationView = binding.bottomNavView
-        bottomNavView.selectedItemId = R.id.nav_search
+        bottomNavView.selectedItemId = R.id.nav_map
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -33,11 +32,11 @@ class SearchActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_search -> {
+                    startActivity(Intent(applicationContext, SearchActivity::class.java))
+                    overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_map -> {
-                    startActivity(Intent(applicationContext, MapActivity::class.java))
-                    overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_messenger -> {

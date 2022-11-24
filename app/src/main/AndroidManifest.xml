@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.irinalyamina.appnetworkforphotographers">
-    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,9 +14,6 @@
         android:theme="@style/Theme.AppNetworkForPhotographers"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".MapActivity"
-            android:exported="false" />
         <activity
             android:name=".controllers.authorization.AuthorizationActivity"
             android:exported="true"
@@ -47,7 +41,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
         <activity
-            android:name=".controllers.addpost.AddPostActivity"
+            android:name=".controllers.MapActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
@@ -62,6 +56,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
         <activity
+            android:name=".controllers.addpost.AddPostActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
+        <activity
+            android:name=".controllers.addpost.AddBlogActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
+        <activity
             android:name=".controllers.profile.SettingsActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -72,5 +76,4 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
     </application>
-
 </manifest>

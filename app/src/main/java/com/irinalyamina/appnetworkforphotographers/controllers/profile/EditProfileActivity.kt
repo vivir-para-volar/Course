@@ -18,13 +18,6 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditProfileBinding
 
-    private lateinit var editTextUsername: TextView
-    private lateinit var editTextName: TextView
-    private lateinit var editTextBirthday: TextView
-    private lateinit var editTextEmail: TextView
-
-    private lateinit var profilePhoto: ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,19 +28,12 @@ class EditProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        editTextUsername = binding.editTextUsername
-        editTextName = binding.editTextName
-        editTextBirthday = binding.editTextBirthday
-        editTextEmail = binding.editTextEmail
-
-        profilePhoto = binding.profileImage
-
         Parse.onDatePicker(this, binding.editTextBirthday, binding.btnChangeBirthday)
 
         initialDate()
 
-        binding.btnChangeProfile.setOnClickListener { btnChangeProfileOnClickListener() }
         binding.btnChangePhoto.setOnClickListener { btnChangePhotoOnClickListener() }
+        binding.btnChangeProfile.setOnClickListener { btnChangeProfileOnClickListener() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -60,23 +46,23 @@ class EditProfileActivity : AppCompatActivity() {
     private fun initialDate() {
         val user = UserService.getCurrentUser()
 
-        editTextUsername.text = user.username
-        editTextName.text = user.name
-        editTextBirthday.text = Parse.dateToString(user.birthday)
-        editTextEmail.text = user.email
+        (binding.editTextUsername as TextView).text = user.username
+        (binding.editTextName as TextView).text = user.name
+        (binding.editTextBirthday as TextView).text = Parse.dateToString(user.birthday)
+        (binding.editTextEmail as TextView).text = user.email
 
         val userService = UserService(this)
         val photo = userService.getProfilePhoto(user)
-        if(photo != null){
-            profilePhoto.setImageBitmap(photo)
+        if (photo != null) {
+            binding.profilePhoto.setImageBitmap(photo)
         }
     }
 
     private fun btnChangeProfileOnClickListener() {
-        val username = editTextUsername.text.toString().trim()
-        val name = editTextName.text.toString().trim()
-        val birthday = Parse.stringToDate(editTextBirthday.text.toString())
-        val email = editTextEmail.text.toString().trim()
+        val username = binding.editTextUsername.text.toString().trim()
+        val name = binding.editTextName.text.toString().trim()
+        val birthday = Parse.stringToDate(binding.editTextBirthday.text.toString())
+        val email = binding.editTextEmail.text.toString().trim()
 
         if (username.isEmpty()) {
             ShowMessage.toast(this, getString(R.string.empty_username))
@@ -91,19 +77,20 @@ class EditProfileActivity : AppCompatActivity() {
             return
         }
 
-        val changedUser = Photographer(UserService.getCurrentUser().id, username, name, birthday, email, null)
+        val changedUser =
+            Photographer(UserService.getCurrentUser().id!!, username, name, birthday, email, null)
 
         val service = UserService(this)
         val answer = service.editProfile(changedUser)
 
-        if(answer){
+        if (answer) {
             ShowMessage.toast(this, getString(R.string.success_change_profile))
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun btnChangePhotoOnClickListener(){
+    private fun btnChangePhotoOnClickListener() {
         val PICK_IMAGE = 1
 
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -120,8 +107,9 @@ class EditProfileActivity : AppCompatActivity() {
             val service = UserService(this)
             val answer = service.editProfilePhoto((selectedImage))
 
-            if(answer){
-                profilePhoto.setImageURI(selectedImage)
+            if (answer) {
+                ShowMessage.toast(this, getString(R.string.success_change_profile_photo))
+                binding.profilePhoto.setImageURI(selectedImage)
             }
         }
     }

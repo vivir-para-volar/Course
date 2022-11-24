@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun onCreateBottomNavigationView(){
         val bottomNavView: BottomNavigationView = binding.bottomNavView
-        bottomNavView.selectedItemId = R.id.nav_profile
+        bottomNavView.selectedItemId = R.id.nav_home
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
