@@ -1,10 +1,13 @@
-package com.irinalyamina.appnetworkforphotographers.controllers
+package com.irinalyamina.appnetworkforphotographers.controllers.map
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.controllers.messenger.MessengerActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.search.SearchActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.home.HomeActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityMapBinding
 

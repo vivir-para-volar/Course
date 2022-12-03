@@ -51,20 +51,6 @@ class UserService(private var context: Context) {
         }
     }
 
-    fun getProfilePhoto(photographer: Photographer): Bitmap?{
-        if(photographer.pathProfilePhoto == null){
-            return null
-        }
-
-        return try {
-            val imageProcessing = ImageProcessing(context)
-            imageProcessing.getPhoto(photographer.pathProfilePhoto!!)
-        } catch (exp: Exception) {
-            ShowMessage.toast(context, exp.message)
-            null
-        }
-    }
-
     fun editProfile(changedUser: Photographer): Boolean {
         return try {
             database.checkForUniqueness(changedUser)
@@ -76,14 +62,10 @@ class UserService(private var context: Context) {
         }
     }
 
-    fun editProfilePhoto(image: Uri): Boolean {
+    fun editUserProfilePhoto(image: Uri): Boolean {
         return try {
-            val id: Int = getCurrentUser().id!!
-
-            val imageProcessing = ImageProcessing(context)
-            val path = imageProcessing.savePhotoProfile(image, id)
-
-            database.updatePathProfilePhoto(path)
+            val imageParse = ImageParse(context)
+            database.updateUserProfilePhoto(imageParse.uriToBitmap(image))
             true
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)

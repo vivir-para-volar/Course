@@ -51,10 +51,8 @@ class EditProfileActivity : AppCompatActivity() {
         (binding.editTextBirthday as TextView).text = Parse.dateToString(user.birthday)
         (binding.editTextEmail as TextView).text = user.email
 
-        val userService = UserService(this)
-        val photo = userService.getProfilePhoto(user)
-        if (photo != null) {
-            binding.profilePhoto.setImageBitmap(photo)
+        if (user.profilePhoto != null) {
+            binding.profilePhoto.setImageBitmap(user.profilePhoto)
         }
     }
 
@@ -78,7 +76,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         val changedUser =
-            Photographer(UserService.getCurrentUser().id!!, username, name, birthday, email, null)
+            Photographer(UserService.getCurrentUser().id, username, name, birthday, email, null)
 
         val service = UserService(this)
         val answer = service.editProfile(changedUser)
@@ -105,7 +103,7 @@ class EditProfileActivity : AppCompatActivity() {
             val selectedImage: Uri = data.data!!
 
             val service = UserService(this)
-            val answer = service.editProfilePhoto((selectedImage))
+            val answer = service.editUserProfilePhoto((selectedImage))
 
             if (answer) {
                 ShowMessage.toast(this, getString(R.string.success_change_profile_photo))

@@ -31,22 +31,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.Authorization" />
         <activity
-            android:name=".controllers.HomeActivity"
+            android:name=".controllers.home.HomeActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
         <activity
-            android:name=".controllers.SearchActivity"
+            android:name=".controllers.search.SearchActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
         <activity
-            android:name=".controllers.MapActivity"
+            android:name=".controllers.map.MapActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
         <activity
-            android:name=".controllers.MessengerActivity"
+            android:name=".controllers.messenger.MessengerActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />

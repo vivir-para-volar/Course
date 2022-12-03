@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Bitmap
+import android.net.Uri
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
@@ -16,7 +18,7 @@ class DatabaseUser(private var context: Context) {
     companion object {
         var user: Photographer? = null
 
-        fun clearUser(){
+        fun clearUser() {
             user = null
         }
     }
@@ -38,12 +40,13 @@ class DatabaseUser(private var context: Context) {
     }
 
     fun authorization(username: String, password: String) {
-        val query = "SELECT Id, Username, Name, Birthday, Email, PathProfilePhoto FROM Photographers " +
-                "WHERE Username = '$username' AND Password = '$password'"
+        val query =
+            "SELECT Id, Username, Name, Birthday, Email, PathProfilePhoto FROM Photographers " +
+                    "WHERE Username = '$username' AND Password = '$password'"
 
         val cursor: Cursor = db.rawQuery(query, null)
 
-        if(cursor.count == 0){
+        if (cursor.count == 0) {
             throw Exception(context.getString(R.string.error_authorization))
         }
 
@@ -56,7 +59,13 @@ class DatabaseUser(private var context: Context) {
         val email = cursor.getString(4)
         val pathProfilePhoto = cursor.getString(5)
 
-        user = Photographer(id, username, name, birthday, email, pathProfilePhoto)
+        var profilePhoto: Bitmap? = null
+        if (pathProfilePhoto != null) {
+            val imageProcessing = ImageProcessing(context)
+            profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
+        }
+
+        user = Photographer(id, username, name, birthday, email, profilePhoto)
     }
 
     fun registration(newUser: Photographer) {
@@ -74,30 +83,30 @@ class DatabaseUser(private var context: Context) {
         }
     }
 
-    fun checkForUniqueness(photographer: Photographer){
+    fun checkForUniqueness(photographer: Photographer) {
         val id = photographer.id
         val username = photographer.username
         val email = photographer.email
 
         var queryUsername = "SELECT Id FROM Photographers WHERE Username = '$username' "
         var queryEmail = "SELECT Id FROM Photographers WHERE Email = '$email'"
-        if(id != null){
+        if (id != -1) {
             queryUsername += "AND Id <> '$id'"
             queryEmail += "AND Id <> '$id'"
         }
 
         var cursor: Cursor = db.rawQuery(queryUsername, null)
-        if(cursor.count != 0){
+        if (cursor.count != 0) {
             throw Exception(context.getString(R.string.error_unique_username))
         }
 
         cursor = db.rawQuery(queryEmail, null)
-        if(cursor.count != 0){
+        if (cursor.count != 0) {
             throw Exception(context.getString(R.string.error_unique_email))
         }
     }
 
-    fun updateUser(changedUser: Photographer){
+    fun updateUser(changedUser: Photographer) {
         val cv = ContentValues()
         cv.put("Username", changedUser.username)
         cv.put("Name", changedUser.name)
@@ -105,7 +114,7 @@ class DatabaseUser(private var context: Context) {
         cv.put("Email", changedUser.email)
 
         val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(user?.id.toString()))
-        if(count == 0){
+        if (count == 0) {
             throw Exception(context.getString(R.string.error_edit_profile))
         }
 
@@ -115,15 +124,18 @@ class DatabaseUser(private var context: Context) {
         user?.email = changedUser.email
     }
 
-    fun updatePathProfilePhoto(pathProfilePhoto: String){
+    fun updateUserProfilePhoto(userPhoto: Bitmap) {
+        val imageProcessing = ImageProcessing(context)
+        val pathProfilePhoto = imageProcessing.savePhotoProfile(userPhoto, user!!.id)
+
         val cv = ContentValues()
         cv.put("PathProfilePhoto", pathProfilePhoto)
 
         val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(user?.id.toString()))
-        if(count == 0){
+        if (count == 0) {
             throw Exception(context.getString(R.string.error_edit_profile))
         }
 
-        user?.pathProfilePhoto = pathProfilePhoto
+        user?.profilePhoto = userPhoto
     }
 }

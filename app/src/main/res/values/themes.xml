@@ -33,6 +33,7 @@
 
 
     <!-- Theme for Toolbar -->
+    <!-- app:popupTheme="@style/Theme.AppNetworkForPhotographers.PopupOverlay"-->
     <style name="toolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
@@ -121,8 +122,66 @@
     </style>
 
 
-    <!-- Style for Edit Profile -->
+    <!-- Style for Photo -->
+    <style name="user_photo_big">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:src">@drawable/ic_profile</item>
+    </style>
 
+    <style name="user_photo_small" parent="toolbar_icon">
+        <item name="android:src">@drawable/ic_profile</item>
+    </style>
+
+    <style name="photo_post_blog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:src">@drawable/ic_img_black</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+
+    <!-- Style for Post/Blog item -->
+    <style name="toolbar_item_post_blog" parent="toolbar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:paddingHorizontal">10dp</item>
+    </style>
+
+    <style name="toolbar_user_name">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="toolbar_upload_date">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="img_icon_below">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="img_likes" parent="img_icon_below">
+        <item name="android:src">@drawable/ic_likes_black</item>
+    </style>
+
+    <style name="img_comments" parent="img_icon_below">
+        <item name="android:src">@drawable/ic_comments_black</item>
+    </style>
+
+    <style name="text_below">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
 

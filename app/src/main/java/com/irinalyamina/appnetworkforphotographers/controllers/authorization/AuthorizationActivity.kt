@@ -2,12 +2,11 @@ package com.irinalyamina.appnetworkforphotographers.controllers.authorization
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
-import com.irinalyamina.appnetworkforphotographers.controllers.HomeActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.home.HomeActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityAuthorizationBinding
 import com.irinalyamina.appnetworkforphotographers.service.UserService
 
@@ -30,7 +29,7 @@ class AuthorizationActivity : AppCompatActivity() {
 
         val tv: TextView = binding.editTextUsername
         val tv1: TextView = binding.editTextPassword
-        tv.text = "irina"
+        tv.text = "Irina"
         tv1.text = "irina12345"
     }
 

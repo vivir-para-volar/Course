@@ -31,7 +31,7 @@ class AddPostActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        binding.btnLoadPhoto.setOnClickListener { btnLoadPhotoOnClickListener() }
+        binding.btnLoadPostPhoto.setOnClickListener { btnLoadPhotoOnClickListener() }
         binding.btnSavePost.setOnClickListener { btnSavePostOnClickListener() }
     }
 
@@ -55,7 +55,7 @@ class AddPostActivity : AppCompatActivity() {
 
         if (resultCode == RESULT_OK && data != null) {
             val selectedImage: Uri = data.data!!
-            binding.photo.setImageURI(selectedImage)
+            binding.postPhoto.setImageURI(selectedImage)
             flagChoosePhoto = true
         }
     }
@@ -72,10 +72,10 @@ class AddPostActivity : AppCompatActivity() {
             return
         }
 
-        val newPost = Post(caption, UserService.getCurrentUser().id!!)
+        val newPost = Post(caption, UserService.getCurrentUser().id)
 
         val postService = PostService(this)
-        val answer = postService.addPost(newPost, binding.photo.drawToBitmap())
+        val answer = postService.addPost(newPost, binding.postPhoto.drawToBitmap())
 
         if(answer){
             ShowMessage.toast(this, getString(R.string.success_add_post))

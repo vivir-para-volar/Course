@@ -5,13 +5,19 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
-import com.irinalyamina.appnetworkforphotographers.controllers.*
+import com.irinalyamina.appnetworkforphotographers.controllers.PostsAdapter
 import com.irinalyamina.appnetworkforphotographers.controllers.addpost.AddBlogActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.addpost.AddPostActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.authorization.AuthorizationActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.home.HomeActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.map.MapActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.messenger.MessengerActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.search.SearchActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityProfileBinding
+import com.irinalyamina.appnetworkforphotographers.service.PostService
 import com.irinalyamina.appnetworkforphotographers.service.UserService
 
 class ProfileActivity : AppCompatActivity() {
@@ -27,6 +33,14 @@ class ProfileActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         onCreateBottomNavigationView()
+
+
+        /*binding.imagesRecycler.layoutManager = GridLayoutManager(this, 3)
+        val mAdapter = PostsAdapter()
+        binding.imagesRecycler.adapter = mAdapter*/
+
+
+        initialDate()
     }
 
     private fun onCreateBottomNavigationView(){
@@ -93,5 +107,21 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initialDate() {
+        val user = UserService.getCurrentUser()
+
+        binding.textUsername.text = user.username + "(" + user.name + ")"
+
+        if (user.profilePhoto != null) {
+            binding.profilePhoto.setImageBitmap(user.profilePhoto)
+        }
+
+        val postService = PostService(this)
+        val listPosts = postService.getAllPhotographerPosts(user.id)
+        if (listPosts.isNotEmpty()) {
+
+        }
     }
 }

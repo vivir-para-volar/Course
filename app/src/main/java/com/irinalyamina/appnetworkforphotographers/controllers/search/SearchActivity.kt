@@ -1,22 +1,24 @@
-package com.irinalyamina.appnetworkforphotographers.controllers
+package com.irinalyamina.appnetworkforphotographers.controllers.search
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
-import com.irinalyamina.appnetworkforphotographers.controllers.addpost.AddPostActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.home.HomeActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.map.MapActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.messenger.MessengerActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
-import com.irinalyamina.appnetworkforphotographers.databinding.ActivityMessengerBinding
+import com.irinalyamina.appnetworkforphotographers.databinding.ActivitySearchBinding
 
-class MessengerActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMessengerBinding
+    private lateinit var binding: ActivitySearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMessengerBinding.inflate(layoutInflater)
+        binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         onCreateBottomNavigationView()
@@ -24,7 +26,7 @@ class MessengerActivity : AppCompatActivity() {
 
     private fun onCreateBottomNavigationView(){
         val bottomNavView: BottomNavigationView = binding.bottomNavView
-        bottomNavView.selectedItemId = R.id.nav_messenger
+        bottomNavView.selectedItemId = R.id.nav_search
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -34,8 +36,6 @@ class MessengerActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_search -> {
-                    startActivity(Intent(applicationContext, SearchActivity::class.java))
-                    overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_map -> {
@@ -44,6 +44,8 @@ class MessengerActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_messenger -> {
+                    startActivity(Intent(applicationContext, MessengerActivity::class.java))
+                    overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_profile -> {

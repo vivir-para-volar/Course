@@ -3,8 +3,6 @@ package com.irinalyamina.appnetworkforphotographers.database
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
-import android.provider.MediaStore
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import java.io.ByteArrayOutputStream
@@ -24,12 +22,12 @@ class ImageProcessing (private var context: Context) {
         }
     }
 
-    fun savePhotoProfile(uri: Uri, id: Int): String {
+    fun savePhotoProfile(photoProfile: Bitmap, id: Int): String {
         val dir = File("$mainDir/photos/profile/$id")
         val fileName = "profile.jpg"
 
         try{
-            writeImage(uriToBitmap(uri), dir, fileName)
+            writeImage(photoProfile, dir, fileName)
         }
         catch (exp: Exception){
             throw Exception(context.getString(R.string.error_edit_profile_photo))
@@ -66,10 +64,6 @@ class ImageProcessing (private var context: Context) {
         catch (exp: Exception){
             throw Exception(context.getString(R.string.error_get_photo))
         }
-    }
-
-    private fun uriToBitmap(uri: Uri): Bitmap {
-        return MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
     }
 
     private fun writeImage(bitmap: Bitmap, dir: File, fileName: String){

@@ -1,15 +1,16 @@
 package com.irinalyamina.appnetworkforphotographers.models
 
+import android.graphics.Bitmap
 import java.time.LocalDate
 
 class Photographer {
-    var id: Int?
+    var id: Int
     var username: String
     var name: String
     var birthday: LocalDate
     var email: String
     var password: String?
-    var pathProfilePhoto: String?
+    var profilePhoto: Bitmap?
 
     constructor(
         username: String,
@@ -24,8 +25,8 @@ class Photographer {
         this.email = email
         this.password = password
 
-        this.id = null
-        this.pathProfilePhoto = null
+        this.id = -1
+        this.profilePhoto = null
     }
 
     constructor(
@@ -34,14 +35,14 @@ class Photographer {
         name: String,
         birthday: LocalDate,
         email: String,
-        pathProfilePhoto: String?
+        pathProfilePhoto: Bitmap?
     ) {
         this.id = id
         this.username = username
         this.name = name
         this.birthday = birthday
         this.email = email
-        this.pathProfilePhoto = pathProfilePhoto
+        this.profilePhoto = pathProfilePhoto
 
         this.password = null
     }
