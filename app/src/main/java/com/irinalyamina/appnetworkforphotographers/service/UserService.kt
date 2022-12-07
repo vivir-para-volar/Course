@@ -1,20 +1,18 @@
 package com.irinalyamina.appnetworkforphotographers.service
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
-import com.irinalyamina.appnetworkforphotographers.database.DatabaseUser
-import com.irinalyamina.appnetworkforphotographers.database.ImageProcessing
+import com.irinalyamina.appnetworkforphotographers.database.DatabasePhotographer
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
 
 class UserService(private var context: Context) {
 
-    private lateinit var database: DatabaseUser
+    private lateinit var database: DatabasePhotographer
 
     init {
         try {
-            database = DatabaseUser(context)
+            database = DatabasePhotographer(context)
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
         }
@@ -22,11 +20,11 @@ class UserService(private var context: Context) {
 
     companion object{
         fun getCurrentUser(): Photographer {
-            return DatabaseUser.user!!
+            return DatabasePhotographer.user!!
         }
 
         fun clearCurrentUser() {
-            DatabaseUser.clearUser()
+            DatabasePhotographer.clearUser()
         }
     }
 

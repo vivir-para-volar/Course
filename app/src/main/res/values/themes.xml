@@ -44,7 +44,7 @@
         <item name="android:layout_width">?attr/actionBarSize</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">15dp</item>
     </style>
 
     <style name="toolbar_title">
@@ -130,14 +130,16 @@
     </style>
 
     <style name="user_photo_small" parent="toolbar_icon">
+        <item name="android:padding">10dp</item>
         <item name="android:src">@drawable/ic_profile</item>
     </style>
 
     <style name="photo_post_blog">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_img_black</item>
-        <item name="android:scaleType">centerCrop</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:adjustViewBounds">true</item>
     </style>
 
 

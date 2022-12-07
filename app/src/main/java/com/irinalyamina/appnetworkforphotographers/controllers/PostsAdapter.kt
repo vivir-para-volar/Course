@@ -1,35 +1,44 @@
 package com.irinalyamina.appnetworkforphotographers.controllers
 
-import android.graphics.Bitmap
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.databinding.PostItemBinding
+import com.irinalyamina.appnetworkforphotographers.models.Post
 
-class PostsAdapter(private val images: List<Bitmap>) : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+class PostsAdapter: RecyclerView.Adapter<PostsAdapter.PostHolder>() {
+    private var listPosts: ArrayList<Post> = arrayListOf()
 
-    class ViewHolder(val image: ImageView) : RecyclerView.ViewHolder(image)
+    class PostHolder(item: View): RecyclerView.ViewHolder(item){
+        val binding = PostItemBinding.bind(item)
 
-    /*fun updateImages(newImages: List<String>) {
-        val diffResult = DiffUtil.calculateDiff(SimpleCallback(images, newImages) { it })
-        this.images = newImages
-        diffResult.dispatchUpdatesTo(this)
-    }*/
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val image = LayoutInflater.from(parent.context)
-            .inflate(R.layout.post_item, parent, false) as ImageView
-        return ViewHolder(image)
+        fun bind(post: Post){
+            binding.photographerProfilePhoto.setImageBitmap(post.photographerProfilePhoto)
+            binding.photographerUsername.text = post.photographerUsername
+            binding.uploadDate.text = Parse.dateToString(post.uploadDate)
+            binding.postPhoto.setImageBitmap(post.photo)
+            binding.textCaption.text = post.caption
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.image.loadImage(images[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.post_item, parent, false)
+        return PostHolder(view)
     }
 
-    private fun ImageView.loadImage(image: Bitmap) {
-        //Glide.with(this).load(image).centerCrop().into(this)
+    override fun onBindViewHolder(holder: PostHolder, position: Int) {
+        holder.bind(listPosts[position])
     }
 
-    override fun getItemCount(): Int = images.size
+    override fun getItemCount(): Int {
+        return listPosts.size
+    }
+
+    fun setListPosts(listPosts: ArrayList<Post>){
+        this.listPosts = listPosts
+        notifyDataSetChanged()
+    }
 }

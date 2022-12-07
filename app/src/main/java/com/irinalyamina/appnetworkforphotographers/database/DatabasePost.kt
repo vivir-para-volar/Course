@@ -12,7 +12,7 @@ import com.irinalyamina.appnetworkforphotographers.models.Post
 import java.io.IOException
 import java.sql.SQLException
 import java.time.LocalDate
-import kotlin.Exception
+import java.util.*
 
 class DatabasePost(private var context: Context) {
 
@@ -79,13 +79,15 @@ class DatabasePost(private var context: Context) {
         return countRaw
     }
 
-    fun allPhotographerPosts(photographerId: Int): List<Post> {
-        val list = arrayListOf<Post>()
+    fun allPhotographerPosts(photographerId: Int): ArrayList<Post> {
+        val list: ArrayList<Post> = arrayListOf()
 
-        val query = "SELECT * FROM Posts WHERE PhotographerId = '$photographerId'"
+        val photographer = getPhotographerById(photographerId)
+
+        val query = "SELECT * FROM Posts WHERE PhotographerId = '$photographerId' ORDER BY Id DESC"
         val cursor: Cursor = db.rawQuery(query, null)
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             val id = cursor.getInt(0)
             val pathPhoto = cursor.getString(1)
             val caption = cursor.getString(2)
@@ -95,10 +97,73 @@ class DatabasePost(private var context: Context) {
             val imageProcessing = ImageProcessing(context)
             val photo = imageProcessing.getPhoto(pathPhoto)
 
-            val post = Post(id, photo, caption, uploadDate, photographerId)
+            val post = Post(
+                id,
+                photo,
+                caption,
+                uploadDate,
+                photographerId,
+                photographer.username,
+                photographer.profilePhoto
+            )
             list.add(post)
         }
 
         return list
+    }
+
+    fun allPosts(): ArrayList<Post> {
+        val list: ArrayList<Post> = arrayListOf()
+
+        val query = "SELECT * FROM Posts ORDER BY Id DESC"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(0)
+            val pathPhoto = cursor.getString(1)
+            val caption = cursor.getString(2)
+            val uploadDate = Parse.stringToDate(cursor.getString(3))
+            val photographerId = cursor.getInt(4)
+
+            val imageProcessing = ImageProcessing(context)
+            val photo = imageProcessing.getPhoto(pathPhoto)
+
+            val photographer = getPhotographerById(photographerId)
+
+            val post = Post(
+                id,
+                photo,
+                caption,
+                uploadDate,
+                photographerId,
+                photographer.username,
+                photographer.profilePhoto
+            )
+            list.add(post)
+        }
+        return list
+    }
+
+    private fun getPhotographerById(id: Int): Photographer {
+        val query = "SELECT Username, PathProfilePhoto FROM Photographers WHERE Id = '$id'"
+
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        if (cursor.count == 0) {
+            throw java.lang.Exception(context.getString(R.string.error_get_by_id))
+        }
+
+        cursor.moveToFirst()
+
+        val username = cursor.getString(0)
+        val pathProfilePhoto = cursor.getString(1)
+
+        var profilePhoto: Bitmap? = null
+        if (pathProfilePhoto != null) {
+            val imageProcessing = ImageProcessing(context)
+            profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
+        }
+
+        return Photographer(id, username, "", LocalDate.now(), "", profilePhoto)
     }
 }

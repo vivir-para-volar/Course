@@ -66,6 +66,8 @@
     <!-- Database -->
     <string name="error_update_database">Unable to update database</string>
 
+    <string name="error_get_by_id">Incorrect id</string>
+
     <string name="error_authorization">Incorrect username or password entered</string>
     <string name="error_registration">Registration error. Try again</string>
     <string name="error_unique_username">This username is already in use</string>

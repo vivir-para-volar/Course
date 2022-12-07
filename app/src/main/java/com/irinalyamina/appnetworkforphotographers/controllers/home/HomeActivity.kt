@@ -3,17 +3,22 @@ package com.irinalyamina.appnetworkforphotographers.controllers.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.controllers.PostsAdapter
 import com.irinalyamina.appnetworkforphotographers.controllers.map.MapActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.messenger.MessengerActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.search.SearchActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityHomeBinding
+import com.irinalyamina.appnetworkforphotographers.service.PostService
+import com.irinalyamina.appnetworkforphotographers.service.UserService
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    private val postsAdapter = PostsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +27,11 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         onCreateBottomNavigationView()
+
+        binding.recyclerViewPosts.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewPosts.adapter = postsAdapter
+
+        initialDate()
     }
 
     private fun onCreateBottomNavigationView(){
@@ -55,6 +65,14 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
             false
+        }
+    }
+
+    private fun initialDate() {
+        val postService = PostService(this)
+        val listPosts = postService.getAllPosts()
+        if (listPosts.isNotEmpty()) {
+            postsAdapter.setListPosts(listPosts)
         }
     }
 }

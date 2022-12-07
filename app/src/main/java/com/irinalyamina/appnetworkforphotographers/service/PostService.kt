@@ -30,12 +30,21 @@ class PostService(private var context: Context) {
         }
     }
 
-    fun getAllPhotographerPosts(photographerId: Int): List<Post> {
+    fun getAllPhotographerPosts(photographerId: Int): ArrayList<Post> {
         return try {
             database.allPhotographerPosts(photographerId)
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
-            emptyList()
+            arrayListOf()
+        }
+    }
+
+    fun getAllPosts(): ArrayList<Post> {
+        return try {
+            database.allPosts()
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            arrayListOf()
         }
     }
 }

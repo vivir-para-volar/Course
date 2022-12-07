@@ -29,7 +29,7 @@ class AuthorizationActivity : AppCompatActivity() {
 
         val tv: TextView = binding.editTextUsername
         val tv1: TextView = binding.editTextPassword
-        tv.text = "Irina"
+        tv.text = "irina"
         tv1.text = "irina12345"
     }
 

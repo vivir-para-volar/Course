@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.controllers.PostsAdapter
@@ -23,6 +24,7 @@ import com.irinalyamina.appnetworkforphotographers.service.UserService
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
+    private val postsAdapter = PostsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +36,8 @@ class ProfileActivity : AppCompatActivity() {
 
         onCreateBottomNavigationView()
 
-
-        /*binding.imagesRecycler.layoutManager = GridLayoutManager(this, 3)
-        val mAdapter = PostsAdapter()
-        binding.imagesRecycler.adapter = mAdapter*/
-
+        binding.recyclerViewPosts.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewPosts.adapter = postsAdapter
 
         initialDate()
     }
@@ -121,7 +120,7 @@ class ProfileActivity : AppCompatActivity() {
         val postService = PostService(this)
         val listPosts = postService.getAllPhotographerPosts(user.id)
         if (listPosts.isNotEmpty()) {
-
+            postsAdapter.setListPosts(listPosts)
         }
     }
 }

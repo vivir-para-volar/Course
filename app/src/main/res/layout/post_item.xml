@@ -2,95 +2,106 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@android:color/transparent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/toolbar"
-        style="@style/toolbar_item_post_blog"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="10dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_photo"
-            style="@style/user_photo_small"
-            app:civ_border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/user_name"
-            style="@style/toolbar_user_name"
-            android:text="willsmith"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/user_photo"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toolbar"
+                style="@style/toolbar_item_post_blog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/upload_date"
-            style="@style/toolbar_upload_date"
-            android:text="25.04.2022"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/user_photo"
-            app:layout_constraintTop_toTopOf="parent" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/photographer_profile_photo"
+                    style="@style/user_photo_small"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btn_share"
-            style="@style/toolbar_icon"
-            android:src="@drawable/ic_share_black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/photographer_username"
+                    style="@style/toolbar_user_name"
+                    android:text="willsmith"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/photographer_profile_photo"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/upload_date"
+                    style="@style/toolbar_upload_date"
+                    android:text="25.04.2022"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/photographer_profile_photo"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/post_image"
-        style="@style/photo_post_blog"
-        app:layout_constraintBottom_toTopOf="@id/text_caption"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+                <ImageView
+                    android:id="@+id/btn_share"
+                    style="@style/toolbar_icon"
+                    android:src="@drawable/ic_share_black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
-        android:text="This is a caption for the post. It's actually a very long caption. Lalalalal lalalalala"
-        app:layout_constraintBottom_toTopOf="@+id/img_likes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/img_likes"
-        style="@style/img_likes"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <ImageView
+                android:id="@+id/post_photo"
+                style="@style/photo_post_blog"
+                app:layout_constraintBottom_toTopOf="@id/text_caption"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <TextView
-        android:id="@+id/text_likes"
-        style="@style/text_below"
-        android:text="1000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_likes"
-        app:layout_constraintTop_toBottomOf="@+id/text_caption" />
+            <TextView
+                android:id="@+id/text_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="This is a caption for the post. It's actually a very long caption. Lalalalal lalalalala"
+                app:layout_constraintBottom_toTopOf="@+id/img_likes" />
 
-    <ImageView
-        android:id="@+id/img_comments"
-        style="@style/img_comments"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_likes"
-        app:layout_constraintTop_toBottomOf="@+id/text_caption" />
+            <ImageView
+                android:id="@+id/img_likes"
+                style="@style/img_likes"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/text_comments"
-        style="@style/text_below"
-        android:text="400"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_comments"
-        app:layout_constraintTop_toBottomOf="@+id/text_caption" />
+            <TextView
+                android:id="@+id/text_likes"
+                style="@style/text_below"
+                android:text="1000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_likes"
+                app:layout_constraintTop_toBottomOf="@+id/text_caption" />
 
+            <ImageView
+                android:id="@+id/img_comments"
+                style="@style/img_comments"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text_likes"
+                app:layout_constraintTop_toBottomOf="@+id/text_caption" />
+
+            <TextView
+                android:id="@+id/text_comments"
+                style="@style/text_below"
+                android:text="400"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_comments"
+                app:layout_constraintTop_toBottomOf="@+id/text_caption" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
