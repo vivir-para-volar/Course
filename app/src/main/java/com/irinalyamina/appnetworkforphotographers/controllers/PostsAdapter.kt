@@ -1,20 +1,25 @@
 package com.irinalyamina.appnetworkforphotographers.controllers
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.databinding.PostItemBinding
+import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.profile.UserProfileActivity
 import com.irinalyamina.appnetworkforphotographers.models.Post
+import com.irinalyamina.appnetworkforphotographers.service.PhotographerService
 
 class PostsAdapter(private val context: Context): RecyclerView.Adapter<PostsAdapter.PostHolder>() {
     private var listPosts: ArrayList<Post> = arrayListOf()
 
-    class PostHolder(item: View): RecyclerView.ViewHolder(item){
-        val binding = PostItemBinding.bind(item)
+    class PostHolder(val view: View): RecyclerView.ViewHolder(view){
+        val binding = PostItemBinding.bind(view)
 
         fun bind(post: Post){
             binding.photographerProfilePhoto.setImageBitmap(post.photographerProfilePhoto)
@@ -33,17 +38,20 @@ class PostsAdapter(private val context: Context): RecyclerView.Adapter<PostsAdap
     override fun onBindViewHolder(holder: PostHolder, position: Int) {
         holder.bind(listPosts[position])
 
-        /*val post = listPosts[position]
         holder.view.findViewById<TextView>(R.id.photographer_username).setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            //intent.putExtra("PhotographerId", post.photographerId)
-            context.startActivity(intent)
+            val post = listPosts[position]
+
+            if(post.photographerId == PhotographerService.getCurrentUser().id){
+                val intent = Intent(context, UserProfileActivity::class.java)
+                context.startActivity(intent)
+            }
+            else{
+                val intent = Intent(context, ProfileActivity::class.java)
+                intent.putExtra("photographerId", post.photographerId)
+                intent.putExtra("fromActivity", FromActivity.home)
+                context.startActivity(intent)
+            }
         }
-        holder.view.findViewById<TextView>(R.id.photographer_profile_photo).setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            //intent.putExtra("PhotographerId", post.photographerId)
-            context.startActivity(intent)
-        }*/
     }
 
     override fun getItemCount(): Int {

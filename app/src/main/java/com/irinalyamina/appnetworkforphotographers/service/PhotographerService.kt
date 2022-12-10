@@ -70,4 +70,13 @@ class PhotographerService(private var context: Context) {
             false
         }
     }
+
+    fun getPhotographerById(photographerId: Int): Photographer? {
+        return try {
+            database.getPhotographerById(photographerId)
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            null
+        }
+    }
 }

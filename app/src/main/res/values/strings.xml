@@ -64,7 +64,6 @@
     <string name="title_add_blog">Add blog</string>
 
 
-
     <!-- Database -->
     <string name="error_update_database">Unable to update database</string>
 

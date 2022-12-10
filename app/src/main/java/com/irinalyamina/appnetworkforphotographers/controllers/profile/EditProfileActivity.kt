@@ -83,7 +83,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         if (answer) {
             ShowMessage.toast(this, getString(R.string.success_change_profile))
-            val intent = Intent(this, ProfileActivity::class.java)
+            val intent = Intent(this, UserProfileActivity::class.java)
             startActivity(intent)
         }
     }
@@ -107,7 +107,7 @@ class EditProfileActivity : AppCompatActivity() {
 
             if (answer) {
                 ShowMessage.toast(this, getString(R.string.success_change_profile_photo))
-                val intent = Intent(this, ProfileActivity::class.java)
+                val intent = Intent(this, UserProfileActivity::class.java)
                 startActivity(intent)
             }
         }

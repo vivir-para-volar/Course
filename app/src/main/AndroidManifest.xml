@@ -51,6 +51,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
         <activity
+            android:name=".controllers.profile.UserProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
+        <activity
             android:name=".controllers.profile.ProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -76,4 +81,5 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
     </application>
+
 </manifest>

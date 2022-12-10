@@ -8,7 +8,7 @@ import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.controllers.search.SearchActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.home.HomeActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.map.MapActivity
-import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.profile.UserProfileActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityMessengerBinding
 
 class MessengerActivity : AppCompatActivity() {
@@ -49,7 +49,7 @@ class MessengerActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_profile -> {
-                    startActivity(Intent(applicationContext, ProfileActivity::class.java))
+                    startActivity(Intent(applicationContext, UserProfileActivity::class.java))
                     overridePendingTransition(0,0)
                     return@setOnItemSelectedListener true
                 }

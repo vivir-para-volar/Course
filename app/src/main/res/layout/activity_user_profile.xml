@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.profile.ProfileActivity">
+    tools:context=".controllers.profile.UserProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -38,38 +38,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
 
-    <Button
-        android:id="@+id/btn_subscribe_unsubscribe"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="15dp"
-        android:text="@string/btn_subscribe"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@+id/btn_message"
-        app:layout_constraintHorizontal_weight="5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_username" />
-
-    <ImageButton
-        android:id="@+id/btn_message"
-        style="@style/image_btn_message_profile"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_subscribe_unsubscribe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintTop_toBottomOf="@+id/text_username" />
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_posts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
-        app:layout_constraintTop_toBottomOf="@id/btn_subscribe_unsubscribe" />
+        app:layout_constraintTop_toBottomOf="@id/text_username" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"

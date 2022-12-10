@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
-import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.profile.UserProfileActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityAddPostBinding
 import com.irinalyamina.appnetworkforphotographers.models.Category
 import com.irinalyamina.appnetworkforphotographers.models.CategoryDirectory
@@ -88,7 +88,7 @@ class AddPostActivity : AppCompatActivity() {
 
         if (answer) {
             ShowMessage.toast(this, getString(R.string.success_add_post))
-            startActivity(Intent(this, ProfileActivity::class.java))
+            startActivity(Intent(this, UserProfileActivity::class.java))
             overridePendingTransition(0, 0)
         }
     }
