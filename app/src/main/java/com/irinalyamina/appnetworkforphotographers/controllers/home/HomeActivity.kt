@@ -13,12 +13,11 @@ import com.irinalyamina.appnetworkforphotographers.controllers.search.SearchActi
 import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityHomeBinding
 import com.irinalyamina.appnetworkforphotographers.service.PostService
-import com.irinalyamina.appnetworkforphotographers.service.UserService
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private val postsAdapter = PostsAdapter()
+    private lateinit var postsAdapter: PostsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
         onCreateBottomNavigationView()
 
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(this)
+        postsAdapter = PostsAdapter(this)
         binding.recyclerViewPosts.adapter = postsAdapter
 
         initialDate()

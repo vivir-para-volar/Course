@@ -53,6 +53,8 @@
     <string name="title_add_post">Add post</string>
     <string name="btn_load_photo">Load photo</string>
     <string name="hint_caption">Caption</string>
+    <string name="text_category_directory">Choose category directory</string>
+    <string name="text_category">Choose category</string>
     <string name="btn_save_post">Save post</string>
     <string name="empty_photo_post">Load photo</string>
     <string name="empty_caption">Enter caption</string>

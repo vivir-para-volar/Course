@@ -9,16 +9,18 @@ class Post {
     var caption: String
     var uploadDate: LocalDate
     var photographerId: Int
+    var categoryId: Int
 
     var photographerUsername: String?
     var photographerProfilePhoto: Bitmap?
 
-    constructor(caption: String, photographerId: Int) {
+    constructor(caption: String, photographerId: Int, categoryId: Int) {
         this.id = -1
         this.photo = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
         this.caption = caption
         this.uploadDate = LocalDate.now()
         this.photographerId = photographerId
+        this.categoryId = categoryId
 
         this.photographerUsername = null
         this.photographerProfilePhoto = null
@@ -30,6 +32,7 @@ class Post {
         caption: String,
         uploadDate: LocalDate,
         photographerId: Int,
+        categoryId: Int,
         photographerUsername: String? = null,
         photographerProfilePhoto: Bitmap? = null
     ) {
@@ -38,6 +41,7 @@ class Post {
         this.caption = caption
         this.uploadDate = uploadDate
         this.photographerId = photographerId
+        this.categoryId = categoryId
 
         this.photographerUsername = photographerUsername
         this.photographerProfilePhoto = photographerProfilePhoto

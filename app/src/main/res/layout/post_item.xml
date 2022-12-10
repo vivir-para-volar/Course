@@ -64,12 +64,12 @@
 
             <TextView
                 android:id="@+id/text_caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/text_view"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
                 android:text="This is a caption for the post. It's actually a very long caption. Lalalalal lalalalala"
-                app:layout_constraintBottom_toTopOf="@+id/img_likes" />
+                app:layout_constraintBottom_toTopOf="@+id/img_likes"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/img_likes"

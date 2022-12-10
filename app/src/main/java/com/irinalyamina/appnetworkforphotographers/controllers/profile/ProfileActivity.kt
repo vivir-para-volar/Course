@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
@@ -19,12 +18,12 @@ import com.irinalyamina.appnetworkforphotographers.controllers.messenger.Messeng
 import com.irinalyamina.appnetworkforphotographers.controllers.search.SearchActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityProfileBinding
 import com.irinalyamina.appnetworkforphotographers.service.PostService
-import com.irinalyamina.appnetworkforphotographers.service.UserService
+import com.irinalyamina.appnetworkforphotographers.service.PhotographerService
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
-    private val postsAdapter = PostsAdapter()
+    private lateinit var postsAdapter: PostsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +36,7 @@ class ProfileActivity : AppCompatActivity() {
         onCreateBottomNavigationView()
 
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(this)
+        postsAdapter = PostsAdapter(this)
         binding.recyclerViewPosts.adapter = postsAdapter
 
         initialDate()
@@ -100,7 +100,7 @@ class ProfileActivity : AppCompatActivity() {
                 return true
             }
             R.id.menu_exit -> {
-                UserService.clearCurrentUser()
+                PhotographerService.clearCurrentUser()
                 startActivity(Intent(this, AuthorizationActivity::class.java))
                 return true
             }
@@ -109,7 +109,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun initialDate() {
-        val user = UserService.getCurrentUser()
+        val user = PhotographerService.getCurrentUser()
 
         binding.textUsername.text = user.username + "(" + user.name + ")"
 

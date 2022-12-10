@@ -1,5 +1,6 @@
 package com.irinalyamina.appnetworkforphotographers.controllers
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.databinding.PostItemBinding
 import com.irinalyamina.appnetworkforphotographers.models.Post
 
-class PostsAdapter: RecyclerView.Adapter<PostsAdapter.PostHolder>() {
+class PostsAdapter(private val context: Context): RecyclerView.Adapter<PostsAdapter.PostHolder>() {
     private var listPosts: ArrayList<Post> = arrayListOf()
 
     class PostHolder(item: View): RecyclerView.ViewHolder(item){
@@ -31,6 +32,18 @@ class PostsAdapter: RecyclerView.Adapter<PostsAdapter.PostHolder>() {
 
     override fun onBindViewHolder(holder: PostHolder, position: Int) {
         holder.bind(listPosts[position])
+
+        /*val post = listPosts[position]
+        holder.view.findViewById<TextView>(R.id.photographer_username).setOnClickListener{
+            val intent = Intent(context, ProfileActivity::class.java)
+            //intent.putExtra("PhotographerId", post.photographerId)
+            context.startActivity(intent)
+        }
+        holder.view.findViewById<TextView>(R.id.photographer_profile_photo).setOnClickListener{
+            val intent = Intent(context, ProfileActivity::class.java)
+            //intent.putExtra("PhotographerId", post.photographerId)
+            context.startActivity(intent)
+        }*/
     }
 
     override fun getItemCount(): Int {

@@ -11,7 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="25dp">
+        android:paddingVertical="25dp"
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/title_text"
@@ -53,6 +54,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_password"
             style="@style/text_input_layout"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username"

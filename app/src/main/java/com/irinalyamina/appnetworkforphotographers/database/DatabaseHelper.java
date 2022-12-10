@@ -12,9 +12,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DB_NAME = "DBNetworkForPhotographers1.db";
+    private static final String DB_NAME = "DBNetworkForPhotographers.db";
     private static String DB_PATH = "";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 1;
 
     private SQLiteDatabase mDataBase;
     private final Context mContext;

@@ -8,7 +8,7 @@ import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.controllers.home.HomeActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityAuthorizationBinding
-import com.irinalyamina.appnetworkforphotographers.service.UserService
+import com.irinalyamina.appnetworkforphotographers.service.PhotographerService
 
 class AuthorizationActivity : AppCompatActivity() {
 
@@ -46,11 +46,15 @@ class AuthorizationActivity : AppCompatActivity() {
             return
         }
 
-        val service = UserService(this)
+        val service = PhotographerService(this)
         val answer = service.authorization(username, password)
 
         if (answer) {
             startActivity(Intent(this, HomeActivity::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 }

@@ -6,7 +6,7 @@ import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.database.DatabasePhotographer
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
 
-class UserService(private var context: Context) {
+class PhotographerService(private var context: Context) {
 
     private lateinit var database: DatabasePhotographer
 

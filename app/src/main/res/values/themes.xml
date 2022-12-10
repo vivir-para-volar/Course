@@ -53,23 +53,11 @@
         <item name="android:textSize">21sp</item>
     </style>
 
-    <!--
-    <style name="toolbar_text" parent="toolbar_title">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:layout_height">@dimen/toolbar_height</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingStart">10dp</item>
-        <item name="android:paddingEnd">10dp</item>
-    </style>
-    -->
 
-
-    <!-- Style for Edit Text -->
+    <!-- Style for EditText -->
     <style name="text_input_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginHorizontal">20dp</item>
-        <item name="android:layout_marginTop">20dp</item>
         <item name="android:textSize">18sp</item>
     </style>
 
@@ -85,10 +73,17 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/light_gray</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:lines">8</item>
-        <item name="android:minLines">6</item>
+        <item name="android:lines">6</item>
+        <item name="android:minLines">4</item>
         <item name="android:gravity">top|start</item>
         <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <!-- Style for TextView -->
+    <style name="text_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 
@@ -130,7 +125,7 @@
     </style>
 
     <style name="user_photo_small" parent="toolbar_icon">
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">8dp</item>
         <item name="android:src">@drawable/ic_profile</item>
     </style>
 
@@ -152,16 +147,18 @@
     <style name="toolbar_user_name">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:textSize">21sp</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingVertical">3dp</item>
     </style>
 
     <style name="toolbar_upload_date">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">bottom</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingVertical">3dp</item>
     </style>
 
     <style name="img_icon_below">

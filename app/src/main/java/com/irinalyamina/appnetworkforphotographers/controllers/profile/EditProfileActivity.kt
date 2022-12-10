@@ -12,7 +12,7 @@ import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityEditProfileBinding
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
-import com.irinalyamina.appnetworkforphotographers.service.UserService
+import com.irinalyamina.appnetworkforphotographers.service.PhotographerService
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -44,7 +44,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun initialDate() {
-        val user = UserService.getCurrentUser()
+        val user = PhotographerService.getCurrentUser()
 
         (binding.editTextUsername as TextView).text = user.username
         (binding.editTextName as TextView).text = user.name
@@ -76,9 +76,9 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         val changedUser =
-            Photographer(UserService.getCurrentUser().id, username, name, birthday, email, null)
+            Photographer(PhotographerService.getCurrentUser().id, username, name, birthday, email, null)
 
-        val service = UserService(this)
+        val service = PhotographerService(this)
         val answer = service.editProfile(changedUser)
 
         if (answer) {
@@ -102,12 +102,13 @@ class EditProfileActivity : AppCompatActivity() {
         if (resultCode == RESULT_OK && data != null) {
             val selectedImage: Uri = data.data!!
 
-            val service = UserService(this)
+            val service = PhotographerService(this)
             val answer = service.editUserProfilePhoto((selectedImage))
 
             if (answer) {
                 ShowMessage.toast(this, getString(R.string.success_change_profile_photo))
-                binding.profilePhoto.setImageURI(selectedImage)
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
             }
         }
     }

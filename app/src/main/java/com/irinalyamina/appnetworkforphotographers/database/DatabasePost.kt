@@ -38,6 +38,7 @@ class DatabasePost(private var context: Context) {
         cv.put("Caption", newPost.caption)
         cv.put("UploadDate", Parse.dateToString(newPost.uploadDate))
         cv.put("PhotographerId", newPost.photographerId)
+        cv.put("CategoryId", newPost.categoryId)
 
         db.beginTransaction()
         try {
@@ -93,6 +94,7 @@ class DatabasePost(private var context: Context) {
             val caption = cursor.getString(2)
             val uploadDate = Parse.stringToDate(cursor.getString(3))
             val photographerId = cursor.getInt(4)
+            val categoryId = cursor.getInt(5)
 
             val imageProcessing = ImageProcessing(context)
             val photo = imageProcessing.getPhoto(pathPhoto)
@@ -103,6 +105,7 @@ class DatabasePost(private var context: Context) {
                 caption,
                 uploadDate,
                 photographerId,
+                categoryId,
                 photographer.username,
                 photographer.profilePhoto
             )
@@ -124,6 +127,7 @@ class DatabasePost(private var context: Context) {
             val caption = cursor.getString(2)
             val uploadDate = Parse.stringToDate(cursor.getString(3))
             val photographerId = cursor.getInt(4)
+            val categoryId = cursor.getInt(5)
 
             val imageProcessing = ImageProcessing(context)
             val photo = imageProcessing.getPhoto(pathPhoto)
@@ -136,6 +140,7 @@ class DatabasePost(private var context: Context) {
                 caption,
                 uploadDate,
                 photographerId,
+                categoryId,
                 photographer.username,
                 photographer.profilePhoto
             )

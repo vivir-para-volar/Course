@@ -2,14 +2,13 @@ package com.irinalyamina.appnetworkforphotographers.controllers.authorization
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityRegistrationBinding
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
-import com.irinalyamina.appnetworkforphotographers.service.UserService
+import com.irinalyamina.appnetworkforphotographers.service.PhotographerService
 
 class RegistrationActivity : AppCompatActivity() {
 
@@ -62,7 +61,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         val newUser = Photographer(username, name, birthday, email, password)
 
-        val service = UserService(this)
+        val service = PhotographerService(this)
         val answer = service.registration(newUser)
 
         if(answer){

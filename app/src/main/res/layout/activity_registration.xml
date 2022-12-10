@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="20dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/title_text"
@@ -27,6 +27,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_username"
             style="@style/text_input_layout"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_text">
@@ -41,6 +42,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_name"
             style="@style/text_input_layout"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username">
@@ -55,6 +57,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_birthday"
             style="@style/text_input_layout"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_name">
@@ -80,6 +83,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_email"
             style="@style/text_input_layout"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_birthday">
@@ -95,6 +99,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_password"
             style="@style/text_input_layout"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email"
@@ -111,6 +116,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_confirm_password"
             style="@style/text_input_layout"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password"
