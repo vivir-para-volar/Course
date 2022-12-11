@@ -3,9 +3,11 @@ package com.irinalyamina.appnetworkforphotographers.controllers.profile
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.tabs.TabLayout
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.controllers.FromActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.PostsAdapter
@@ -34,6 +36,8 @@ class ProfileActivity : AppCompatActivity() {
         val fromActivity = intent.getStringExtra("fromActivity")
         onCreateBottomNavigationView(fromActivity)
 
+        onTabLayout()
+
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(this)
         postsAdapter = PostsAdapter(this)
         binding.recyclerViewPosts.adapter = postsAdapter
@@ -44,11 +48,57 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun initialDate(photographerId: Int) {
+        val photographerService = PhotographerService(this)
+        val photographer = photographerService.getPhotographerById(photographerId)
+
+        if (photographer != null){
+            binding.textUsername.text = photographer.username + "(" + photographer.name + ")"
+
+            if (photographer.profilePhoto != null) {
+                binding.profilePhoto.setImageBitmap(photographer.profilePhoto)
+            }
+
+            val postService = PostService(this)
+            val listPosts = postService.getAllPhotographerPosts(photographer.id)
+            if (listPosts.isNotEmpty()) {
+                postsAdapter.setListPosts(listPosts)
+            }
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun onTabLayout(){
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when(binding.tabLayout.selectedTabPosition){
+                    0 -> {
+                        binding.constraintLayoutAbout.visibility = View.VISIBLE
+                        binding.recyclerViewPosts.visibility = View.GONE
+                        binding.recyclerViewBlogs.visibility = View.GONE
+                    }
+                    1 -> {
+                        binding.constraintLayoutAbout.visibility = View.GONE
+                        binding.recyclerViewPosts.visibility = View.VISIBLE
+                        binding.recyclerViewBlogs.visibility = View.GONE
+                    }
+                    2 -> {
+                        binding.constraintLayoutAbout.visibility = View.GONE
+                        binding.recyclerViewPosts.visibility = View.GONE
+                        binding.recyclerViewBlogs.visibility = View.VISIBLE
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
     }
 
     private fun onCreateBottomNavigationView(fromActivity: String?){
@@ -91,25 +141,6 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
             false
-        }
-    }
-
-    private fun initialDate(photographerId: Int) {
-        val photographerService = PhotographerService(this)
-        val photographer = photographerService.getPhotographerById(photographerId)
-
-        if (photographer != null){
-            binding.textUsername.text = photographer.username + "(" + photographer.name + ")"
-
-            if (photographer.profilePhoto != null) {
-                binding.profilePhoto.setImageBitmap(photographer.profilePhoto)
-            }
-
-            val postService = PostService(this)
-            val listPosts = postService.getAllPhotographerPosts(photographer.id)
-            if (listPosts.isNotEmpty()) {
-                postsAdapter.setListPosts(listPosts)
-            }
         }
     }
 }

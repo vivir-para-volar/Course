@@ -50,6 +50,7 @@
                 <ImageView
                     android:id="@+id/btn_share"
                     style="@style/toolbar_icon"
+                    android:visibility="invisible"
                     android:src="@drawable/ic_share_black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

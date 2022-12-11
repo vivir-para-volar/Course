@@ -30,6 +30,26 @@ class PostService(private var context: Context) {
         }
     }
 
+    fun addLike(postId: Int, photographerId: Int): Boolean{
+        return try {
+            database.addLike(postId, photographerId)
+            true
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            false
+        }
+    }
+
+    fun deleteLike(postId: Int, photographerId: Int): Boolean{
+        return try {
+            database.deleteLike(postId, photographerId)
+            true
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            false
+        }
+    }
+
     fun getAllPhotographerPosts(photographerId: Int): ArrayList<Post> {
         return try {
             database.allPhotographerPosts(photographerId)

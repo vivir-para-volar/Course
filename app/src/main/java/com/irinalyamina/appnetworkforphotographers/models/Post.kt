@@ -2,6 +2,7 @@ package com.irinalyamina.appnetworkforphotographers.models
 
 import android.graphics.Bitmap
 import java.time.LocalDate
+import java.util.ArrayList
 
 class Post {
     var id: Int
@@ -11,7 +12,9 @@ class Post {
     var photographerId: Int
     var categoryId: Int
 
-    var photographerUsername: String?
+    var listLikes: ArrayList<Int>
+
+    var photographerUsername: String
     var photographerProfilePhoto: Bitmap?
 
     constructor(caption: String, photographerId: Int, categoryId: Int) {
@@ -22,7 +25,9 @@ class Post {
         this.photographerId = photographerId
         this.categoryId = categoryId
 
-        this.photographerUsername = null
+        this.listLikes = arrayListOf()
+
+        this.photographerUsername = ""
         this.photographerProfilePhoto = null
     }
 
@@ -33,8 +38,9 @@ class Post {
         uploadDate: LocalDate,
         photographerId: Int,
         categoryId: Int,
-        photographerUsername: String? = null,
-        photographerProfilePhoto: Bitmap? = null
+        listLikes: ArrayList<Int>,
+        photographerUsername: String,
+        photographerProfilePhoto: Bitmap?
     ) {
         this.id = id
         this.photo = photo
@@ -42,6 +48,8 @@ class Post {
         this.uploadDate = uploadDate
         this.photographerId = photographerId
         this.categoryId = categoryId
+
+        this.listLikes = listLikes
 
         this.photographerUsername = photographerUsername
         this.photographerProfilePhoto = photographerProfilePhoto

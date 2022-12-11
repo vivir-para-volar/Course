@@ -36,13 +36,6 @@ class EditProfileActivity : AppCompatActivity() {
         binding.btnChangeProfile.setOnClickListener { btnChangeProfileOnClickListener() }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun initialDate() {
         val user = PhotographerService.getCurrentUser()
 
@@ -53,6 +46,31 @@ class EditProfileActivity : AppCompatActivity() {
 
         if (user.profilePhoto != null) {
             binding.profilePhoto.setImageBitmap(user.profilePhoto)
+        }
+    }
+
+    private fun btnChangePhotoOnClickListener() {
+        val PICK_IMAGE = 1
+
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK && data != null) {
+            val selectedImage: Uri = data.data!!
+
+            val service = PhotographerService(this)
+            val answer = service.editUserProfilePhoto((selectedImage))
+
+            if (answer) {
+                ShowMessage.toast(this, getString(R.string.success_change_profile_photo))
+                val intent = Intent(this, UserProfileActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -88,28 +106,10 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun btnChangePhotoOnClickListener() {
-        val PICK_IMAGE = 1
-
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE)
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK && data != null) {
-            val selectedImage: Uri = data.data!!
-
-            val service = PhotographerService(this)
-            val answer = service.editUserProfilePhoto((selectedImage))
-
-            if (answer) {
-                ShowMessage.toast(this, getString(R.string.success_change_profile_photo))
-                val intent = Intent(this, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
         }
+        return super.onOptionsItemSelected(item)
     }
 }

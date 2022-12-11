@@ -86,6 +86,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="text_view_small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 
     <!-- Style for Button -->
     <style name="button">
@@ -107,6 +113,15 @@
     <style name="image_btn_date">
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:src">@drawable/ic_date_black</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="image_btn_forward">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:src">@drawable/ic_arrow_forward_black</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
     </style>
 
 
@@ -119,8 +134,8 @@
 
     <!-- Style for Photo -->
     <style name="user_photo_big">
-        <item name="android:layout_width">80dp</item>
-        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">70dp</item>
         <item name="android:src">@drawable/ic_profile</item>
     </style>
 
@@ -163,7 +178,7 @@
     </style>
 
     <style name="img_likes" parent="img_icon_below">
-        <item name="android:src">@drawable/ic_likes_black</item>
+        <item name="android:src">@drawable/ic_like_black</item>
     </style>
 
     <style name="img_comments" parent="img_icon_below">

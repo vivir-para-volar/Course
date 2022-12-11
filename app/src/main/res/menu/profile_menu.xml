@@ -15,9 +15,9 @@
         android:title="@string/menu_settings" />
 
     <item
-        android:id="@+id/menu_exit"
+        android:id="@+id/menu_sign_out"
         android:orderInCategory="100"
-        android:title="@string/menu_exit" />
+        android:title="@string/menu_sign_out" />
 
     <item
         android:id="@+id/menu_add_post"

@@ -7,12 +7,14 @@ import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.models.Category
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
 import com.irinalyamina.appnetworkforphotographers.models.Post
 import java.io.IOException
 import java.sql.SQLException
 import java.time.LocalDate
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DatabasePost(private var context: Context) {
 
@@ -80,46 +82,50 @@ class DatabasePost(private var context: Context) {
         return countRaw
     }
 
-    fun allPhotographerPosts(photographerId: Int): ArrayList<Post> {
-        val list: ArrayList<Post> = arrayListOf()
+    fun addLike(postId: Int, photographerId: Int) {
+        val cv = ContentValues()
+        cv.put("PostId", postId)
+        cv.put("PhotographerId", photographerId)
 
+        val id: Long = db.insert("PostLikes", null, cv)
+
+        if (id == -1L) {
+            throw Exception(context.getString(R.string.error_add_like))
+        }
+    }
+
+    fun deleteLike(postId: Int, photographerId: Int) {
+        val countRaw = db.delete(
+            "PostLikes",
+            "PostId = ? AND PhotographerId = ?",
+            arrayOf(postId.toString(), photographerId.toString())
+        )
+
+        /*"'$postId'='PostId' AND '$photographerId'='PhotographerId'", null)*/
+
+        if (countRaw != 1) {
+            throw Exception(context.getString(R.string.error_delete_like))
+        }
+    }
+
+    fun allPhotographerPosts(photographerId: Int): ArrayList<Post> {
         val photographer = getPhotographerById(photographerId)
 
         val query = "SELECT * FROM Posts WHERE PhotographerId = '$photographerId' ORDER BY Id DESC"
         val cursor: Cursor = db.rawQuery(query, null)
 
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(0)
-            val pathPhoto = cursor.getString(1)
-            val caption = cursor.getString(2)
-            val uploadDate = Parse.stringToDate(cursor.getString(3))
-            val photographerId = cursor.getInt(4)
-            val categoryId = cursor.getInt(5)
-
-            val imageProcessing = ImageProcessing(context)
-            val photo = imageProcessing.getPhoto(pathPhoto)
-
-            val post = Post(
-                id,
-                photo,
-                caption,
-                uploadDate,
-                photographerId,
-                categoryId,
-                photographer.username,
-                photographer.profilePhoto
-            )
-            list.add(post)
-        }
-
-        return list
+        return getListPosts(cursor, photographer)
     }
 
     fun allPosts(): ArrayList<Post> {
-        val list: ArrayList<Post> = arrayListOf()
-
         val query = "SELECT * FROM Posts ORDER BY Id DESC"
         val cursor: Cursor = db.rawQuery(query, null)
+
+        return getListPosts(cursor)
+    }
+
+    private fun getListPosts(cursor: Cursor, photographer: Photographer? = null): ArrayList<Post> {
+        val list: ArrayList<Post> = arrayListOf()
 
         while (cursor.moveToNext()) {
             val id = cursor.getInt(0)
@@ -132,7 +138,7 @@ class DatabasePost(private var context: Context) {
             val imageProcessing = ImageProcessing(context)
             val photo = imageProcessing.getPhoto(pathPhoto)
 
-            val photographer = getPhotographerById(photographerId)
+            val photographerTemp = photographer ?: getPhotographerById(photographerId)
 
             val post = Post(
                 id,
@@ -141,8 +147,9 @@ class DatabasePost(private var context: Context) {
                 uploadDate,
                 photographerId,
                 categoryId,
-                photographer.username,
-                photographer.profilePhoto
+                getAllLikes(id),
+                photographerTemp.username,
+                photographerTemp.profilePhoto
             )
             list.add(post)
         }
@@ -170,5 +177,18 @@ class DatabasePost(private var context: Context) {
         }
 
         return Photographer(id, username, "", LocalDate.now(), "", profilePhoto)
+    }
+
+    private fun getAllLikes(postId: Int): ArrayList<Int> {
+        val list = arrayListOf<Int>()
+
+        val query = "SELECT PhotographerId FROM PostLikes WHERE PostId = '$postId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val photographerId = cursor.getInt(0)
+            list.add(photographerId)
+        }
+        return list
     }
 }

@@ -34,6 +34,14 @@ class HomeActivity : AppCompatActivity() {
         initialDate()
     }
 
+    private fun initialDate() {
+        val postService = PostService(this)
+        val listPosts = postService.getAllPosts()
+        if (listPosts.isNotEmpty()) {
+            postsAdapter.setListPosts(listPosts)
+        }
+    }
+
     private fun onCreateBottomNavigationView(){
         val bottomNavView: BottomNavigationView = binding.bottomNavView
         bottomNavView.selectedItemId = R.id.nav_home
@@ -65,14 +73,6 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
             false
-        }
-    }
-
-    private fun initialDate() {
-        val postService = PostService(this)
-        val listPosts = postService.getAllPosts()
-        if (listPosts.isNotEmpty()) {
-            postsAdapter.setListPosts(listPosts)
         }
     }
 }
