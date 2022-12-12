@@ -11,6 +11,7 @@ class Photographer {
     var email: String
     var password: String?
     var profilePhoto: Bitmap?
+    var profileDescription: String?
 
     constructor(
         username: String,
@@ -27,6 +28,7 @@ class Photographer {
 
         this.id = -1
         this.profilePhoto = null
+        this.profileDescription = null
     }
 
     constructor(
@@ -35,7 +37,8 @@ class Photographer {
         name: String,
         birthday: LocalDate,
         email: String,
-        pathProfilePhoto: Bitmap?
+        pathProfilePhoto: Bitmap?,
+        profileDescription: String?
     ) {
         this.id = id
         this.username = username
@@ -45,5 +48,6 @@ class Photographer {
         this.profilePhoto = pathProfilePhoto
 
         this.password = null
+        this.profileDescription = profileDescription
     }
 }

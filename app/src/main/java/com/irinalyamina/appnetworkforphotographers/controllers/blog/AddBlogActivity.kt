@@ -1,4 +1,4 @@
-package com.irinalyamina.appnetworkforphotographers.controllers.addpost
+package com.irinalyamina.appnetworkforphotographers.controllers.blog
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
-import com.irinalyamina.appnetworkforphotographers.controllers.PostsAdapter
+import com.irinalyamina.appnetworkforphotographers.controllers.post.PostsAdapter
 import com.irinalyamina.appnetworkforphotographers.controllers.map.MapActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.messenger.MessengerActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.search.SearchActivity
@@ -36,7 +36,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initialDate() {
         val postService = PostService(this)
-        val listPosts = postService.getAllPosts()
+        val listPosts = postService.getPosts()
         if (listPosts.isNotEmpty()) {
             postsAdapter.setListPosts(listPosts)
         }

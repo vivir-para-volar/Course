@@ -1,4 +1,4 @@
-package com.irinalyamina.appnetworkforphotographers.controllers
+package com.irinalyamina.appnetworkforphotographers.controllers.post
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.controllers.FromActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.PostItemBinding
 import com.irinalyamina.appnetworkforphotographers.controllers.profile.ProfileActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.profile.UserProfileActivity
@@ -27,7 +28,7 @@ class PostsAdapter(private val context: Context) : RecyclerView.Adapter<PostsAda
         fun bind(post: Post) {
             binding.photographerProfilePhoto.setImageBitmap(post.photographerProfilePhoto)
             binding.photographerUsername.text = post.photographerUsername
-            binding.uploadDate.text = Parse.dateToString(post.uploadDate)
+            binding.uploadDate.text = Parse.dateTimeToString(post.uploadDate)
             binding.postPhoto.setImageBitmap(post.photo)
             binding.textCaption.text = post.caption
 
@@ -35,6 +36,8 @@ class PostsAdapter(private val context: Context) : RecyclerView.Adapter<PostsAda
                 binding.imgLikes.setImageResource(R.drawable.ic_like_click_black)
             }
             binding.textLikes.text = post.listLikes.size.toString()
+
+            binding.textComments.text = post.countComments.toString()
         }
     }
 
@@ -99,6 +102,18 @@ class PostsAdapter(private val context: Context) : RecyclerView.Adapter<PostsAda
                 }
             }
         }
+
+        holder.view.findViewById<ImageView>(R.id.img_comments).setOnClickListener {
+            val intent = Intent(context, PostCommentsActivity::class.java)
+            intent.putExtra("postId", post.id)
+            context.startActivity(intent)
+        }
+
+        holder.view.findViewById<TextView>(R.id.text_comments).setOnClickListener {
+            val intent = Intent(context, PostCommentsActivity::class.java)
+            intent.putExtra("postId", post.id)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -106,7 +121,7 @@ class PostsAdapter(private val context: Context) : RecyclerView.Adapter<PostsAda
     }
 
     fun setListPosts(listPosts: ArrayList<Post>) {
-        this.listPosts = listPosts
+        this.listPosts.addAll(listPosts)
         notifyDataSetChanged()
     }
 }

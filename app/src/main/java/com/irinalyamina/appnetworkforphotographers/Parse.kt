@@ -6,22 +6,35 @@ import android.widget.ImageButton
 import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 class Parse {
 
     companion object {
-        private const val formatDate = "dd-MM-yyyy"
+        private const val formatDateTime = "dd.MM.yyyy HH:mm"
+        private const val formatDate = "dd.MM.yyyy"
 
-        private val dateTimeFormatter = DateTimeFormatter.ofPattern(formatDate)
+
+        private val dateTimeFormatter = DateTimeFormatter.ofPattern(formatDateTime)
+        private val dateFormatter = DateTimeFormatter.ofPattern(formatDate)
+
 
         fun stringToDate(date: String): LocalDate {
-            return LocalDate.parse(date, dateTimeFormatter)
+            return LocalDate.parse(date, dateFormatter)
         }
 
         fun dateToString(date: LocalDate): String {
-            return dateTimeFormatter.format(date)
+            return dateFormatter.format(date)
+        }
+
+        fun stringToDateTime(dateTime: String): LocalDateTime {
+            return LocalDateTime.parse(dateTime, dateTimeFormatter)
+        }
+
+        fun dateTimeToString(dateTime: LocalDateTime): String {
+            return dateTimeFormatter.format(dateTime)
         }
 
         fun onDatePicker(context: Context, textView: TextView, button: ImageButton) {

@@ -49,6 +49,38 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun btnChangeProfileOnClickListener() {
+        val username = binding.editTextUsername.text.toString().trim()
+        val name = binding.editTextName.text.toString().trim()
+        val birthday = Parse.stringToDate(binding.editTextBirthday.text.toString())
+        val email = binding.editTextEmail.text.toString().trim()
+
+        if (username.isEmpty()) {
+            ShowMessage.toast(this, getString(R.string.empty_username))
+            return
+        }
+        if (name.isEmpty()) {
+            ShowMessage.toast(this, getString(R.string.empty_name))
+            return
+        }
+        if (email.isEmpty()) {
+            ShowMessage.toast(this, getString(R.string.empty_email))
+            return
+        }
+
+        val changedUser =
+            Photographer(PhotographerService.getCurrentUser().id, username, name, birthday, email, null, null)
+
+        val service = PhotographerService(this)
+        val answer = service.editProfile(changedUser)
+
+        if (answer) {
+            ShowMessage.toast(this, getString(R.string.success_change_profile))
+            val intent = Intent(this, UserProfileActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun btnChangePhotoOnClickListener() {
         val PICK_IMAGE = 1
 
@@ -71,38 +103,6 @@ class EditProfileActivity : AppCompatActivity() {
                 val intent = Intent(this, UserProfileActivity::class.java)
                 startActivity(intent)
             }
-        }
-    }
-
-    private fun btnChangeProfileOnClickListener() {
-        val username = binding.editTextUsername.text.toString().trim()
-        val name = binding.editTextName.text.toString().trim()
-        val birthday = Parse.stringToDate(binding.editTextBirthday.text.toString())
-        val email = binding.editTextEmail.text.toString().trim()
-
-        if (username.isEmpty()) {
-            ShowMessage.toast(this, getString(R.string.empty_username))
-            return
-        }
-        if (name.isEmpty()) {
-            ShowMessage.toast(this, getString(R.string.empty_name))
-            return
-        }
-        if (email.isEmpty()) {
-            ShowMessage.toast(this, getString(R.string.empty_email))
-            return
-        }
-
-        val changedUser =
-            Photographer(PhotographerService.getCurrentUser().id, username, name, birthday, email, null)
-
-        val service = PhotographerService(this)
-        val answer = service.editProfile(changedUser)
-
-        if (answer) {
-            ShowMessage.toast(this, getString(R.string.success_change_profile))
-            val intent = Intent(this, UserProfileActivity::class.java)
-            startActivity(intent)
         }
     }
 

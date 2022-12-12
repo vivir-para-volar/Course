@@ -1,4 +1,4 @@
-package com.irinalyamina.appnetworkforphotographers.controllers.addpost
+package com.irinalyamina.appnetworkforphotographers.controllers.post
 
 import android.content.Intent
 import android.net.Uri

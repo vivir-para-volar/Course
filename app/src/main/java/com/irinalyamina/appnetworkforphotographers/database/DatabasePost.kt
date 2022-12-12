@@ -7,13 +7,12 @@ import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
-import com.irinalyamina.appnetworkforphotographers.models.Category
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
 import com.irinalyamina.appnetworkforphotographers.models.Post
+import com.irinalyamina.appnetworkforphotographers.models.PostComment
 import java.io.IOException
 import java.sql.SQLException
 import java.time.LocalDate
-import java.util.*
 import kotlin.collections.ArrayList
 
 class DatabasePost(private var context: Context) {
@@ -34,11 +33,11 @@ class DatabasePost(private var context: Context) {
         }
     }
 
-    fun add(newPost: Post, postPhoto: Bitmap) {
+    fun add(newPost: Post, postPhoto: Bitmap): Long {
         val cv = ContentValues()
         cv.put("PathPhoto", "pathPhoto")
         cv.put("Caption", newPost.caption)
-        cv.put("UploadDate", Parse.dateToString(newPost.uploadDate))
+        cv.put("UploadDate", Parse.dateTimeToString(newPost.uploadDate))
         cv.put("PhotographerId", newPost.photographerId)
         cv.put("CategoryId", newPost.categoryId)
 
@@ -61,6 +60,8 @@ class DatabasePost(private var context: Context) {
             }
 
             db.setTransactionSuccessful()
+
+            return id
         } catch (exp: Exception) {
             throw Exception(exp.message)
         } finally {
@@ -75,14 +76,15 @@ class DatabasePost(private var context: Context) {
 
         val countRaw = db.update("Posts", cv, "Id=?", arrayOf(post.id.toString()))
         return countRaw
-    }*/
+    }
 
     fun delete(id: Int): Int {
         val countRaw = db.delete("Posts", "Id=?", arrayOf(id.toString()))
         return countRaw
-    }
+    }*/
 
-    fun addLike(postId: Int, photographerId: Int) {
+
+    fun addLike(postId: Int, photographerId: Int): Long {
         val cv = ContentValues()
         cv.put("PostId", postId)
         cv.put("PhotographerId", photographerId)
@@ -92,6 +94,8 @@ class DatabasePost(private var context: Context) {
         if (id == -1L) {
             throw Exception(context.getString(R.string.error_add_like))
         }
+
+        return id
     }
 
     fun deleteLike(postId: Int, photographerId: Int) {
@@ -101,14 +105,29 @@ class DatabasePost(private var context: Context) {
             arrayOf(postId.toString(), photographerId.toString())
         )
 
-        /*"'$postId'='PostId' AND '$photographerId'='PhotographerId'", null)*/
-
         if (countRaw != 1) {
             throw Exception(context.getString(R.string.error_delete_like))
         }
     }
 
-    fun allPhotographerPosts(photographerId: Int): ArrayList<Post> {
+    fun addPostComment(postComment: PostComment): Long {
+        val cv = ContentValues()
+        cv.put("Date", Parse.dateTimeToString(postComment.date))
+        cv.put("Text", postComment.text)
+        cv.put("PostId", postComment.postId)
+        cv.put("PhotographerId", postComment.photographerId)
+
+        val id: Long = db.insert("PostComments", null, cv)
+
+        if (id == -1L) {
+            throw Exception(context.getString(R.string.error_add_like))
+        }
+
+        return id
+    }
+
+
+    fun getPhotographerPosts(photographerId: Int): ArrayList<Post> {
         val photographer = getPhotographerById(photographerId)
 
         val query = "SELECT * FROM Posts WHERE PhotographerId = '$photographerId' ORDER BY Id DESC"
@@ -117,11 +136,40 @@ class DatabasePost(private var context: Context) {
         return getListPosts(cursor, photographer)
     }
 
-    fun allPosts(): ArrayList<Post> {
+    fun getPosts(): ArrayList<Post> {
         val query = "SELECT * FROM Posts ORDER BY Id DESC"
         val cursor: Cursor = db.rawQuery(query, null)
 
         return getListPosts(cursor)
+    }
+
+    fun getPostComments(postId: Int): ArrayList<PostComment>{
+        val list = arrayListOf<PostComment>()
+
+        val query = "SELECT * FROM PostComments WHERE PostId = '$postId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(0)
+            val date = Parse.stringToDateTime(cursor.getString(1))
+            val text = cursor.getString(2)
+            val postId = cursor.getInt(3)
+            val photographerId = cursor.getInt(4)
+
+            val photographer = getPhotographerById(photographerId)
+
+            val postComment = PostComment(
+                id,
+                date,
+                text,
+                postId,
+                photographerId,
+                photographer.username,
+                photographer.profilePhoto
+            )
+            list.add(postComment)
+        }
+        return list
     }
 
     private fun getListPosts(cursor: Cursor, photographer: Photographer? = null): ArrayList<Post> {
@@ -131,7 +179,7 @@ class DatabasePost(private var context: Context) {
             val id = cursor.getInt(0)
             val pathPhoto = cursor.getString(1)
             val caption = cursor.getString(2)
-            val uploadDate = Parse.stringToDate(cursor.getString(3))
+            val uploadDate = Parse.stringToDateTime(cursor.getString(3))
             val photographerId = cursor.getInt(4)
             val categoryId = cursor.getInt(5)
 
@@ -148,6 +196,7 @@ class DatabasePost(private var context: Context) {
                 photographerId,
                 categoryId,
                 getAllLikes(id),
+                getCountPostComments(id),
                 photographerTemp.username,
                 photographerTemp.profilePhoto
             )
@@ -176,7 +225,7 @@ class DatabasePost(private var context: Context) {
             profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
         }
 
-        return Photographer(id, username, "", LocalDate.now(), "", profilePhoto)
+        return Photographer(id, username, "", LocalDate.now(), "", profilePhoto, null)
     }
 
     private fun getAllLikes(postId: Int): ArrayList<Int> {
@@ -190,5 +239,14 @@ class DatabasePost(private var context: Context) {
             list.add(photographerId)
         }
         return list
+    }
+
+    private fun getCountPostComments(postId: Int): Int{
+        val query = "SELECT COUNT(*) FROM PostComments WHERE PostId = '$postId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        cursor.moveToNext()
+        val count = cursor.getInt(0)
+        return count
     }
 }

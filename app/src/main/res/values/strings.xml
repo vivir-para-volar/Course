@@ -68,6 +68,12 @@
     <string name="empty_caption">Enter caption</string>
     <string name="success_add_post">Post added successfully</string>
 
+    <!-- Post Comments -->
+    <string name="title_post_comments">Post comments</string>
+    <string name="text_comments">comments</string>
+    <string name="text_add_comment">Enter comment…</string>
+    <string name="text_comment_empty">Enter comment</string>
+
     <!-- Add Blog -->
     <string name="title_add_blog">Add blog</string>
 

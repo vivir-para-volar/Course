@@ -40,7 +40,7 @@ class DatabasePhotographer(private var context: Context) {
     }
 
     fun authorization(username: String, password: String) {
-        val query = "SELECT Id, Name, Birthday, Email, PathProfilePhoto FROM Photographers " +
+        val query = "SELECT Id, Name, Birthday, Email, PathProfilePhoto, ProfileDescription FROM Photographers " +
                     "WHERE Username = '$username' AND Password = '$password'"
 
         val cursor: Cursor = db.rawQuery(query, null)
@@ -56,6 +56,7 @@ class DatabasePhotographer(private var context: Context) {
         val birthday = Parse.stringToDate(cursor.getString(2))
         val email = cursor.getString(3)
         val pathProfilePhoto = cursor.getString(4)
+        val profileDescription = cursor.getString(5)
 
         var profilePhoto: Bitmap? = null
         if (pathProfilePhoto != null) {
@@ -63,10 +64,10 @@ class DatabasePhotographer(private var context: Context) {
             profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
         }
 
-        user = Photographer(id, username, name, birthday, email, profilePhoto)
+        user = Photographer(id, username, name, birthday, email, profilePhoto, profileDescription)
     }
 
-    fun registration(newUser: Photographer) {
+    fun registration(newUser: Photographer): Long {
         val cv = ContentValues()
         cv.put("Username", newUser.username)
         cv.put("Name", newUser.name)
@@ -79,6 +80,8 @@ class DatabasePhotographer(private var context: Context) {
         if (id == -1L) {
             throw Exception(context.getString(R.string.error_registration))
         }
+
+        return id
     }
 
     fun checkForUniqueness(photographer: Photographer) {
@@ -138,7 +141,7 @@ class DatabasePhotographer(private var context: Context) {
     }
 
     fun getPhotographerById(id: Int): Photographer {
-        val query = "SELECT Username, Name, Birthday, Email, PathProfilePhoto FROM Photographers WHERE Id = '$id'"
+        val query = "SELECT Username, Name, Birthday, Email, PathProfilePhoto, ProfileDescription FROM Photographers WHERE Id = '$id'"
 
         val cursor: Cursor = db.rawQuery(query, null)
 
@@ -153,6 +156,7 @@ class DatabasePhotographer(private var context: Context) {
         val birthday = Parse.stringToDate(cursor.getString(2))
         val email = cursor.getString(3)
         val pathProfilePhoto = cursor.getString(4)
+        val profileDescription = cursor.getString(5)
 
         var profilePhoto: Bitmap? = null
         if (pathProfilePhoto != null) {
@@ -160,6 +164,6 @@ class DatabasePhotographer(private var context: Context) {
             profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
         }
 
-        return Photographer(id, username, name, birthday, email, profilePhoto)
+        return Photographer(id, username, name, birthday, email, profilePhoto, profileDescription)
     }
 }

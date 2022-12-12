@@ -4,9 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.database.DatabasePost
-import com.irinalyamina.appnetworkforphotographers.database.ImageProcessing
-import com.irinalyamina.appnetworkforphotographers.models.Photographer
 import com.irinalyamina.appnetworkforphotographers.models.Post
+import com.irinalyamina.appnetworkforphotographers.models.PostComment
 
 class PostService(private var context: Context) {
 
@@ -50,18 +49,37 @@ class PostService(private var context: Context) {
         }
     }
 
-    fun getAllPhotographerPosts(photographerId: Int): ArrayList<Post> {
+    fun addPostComment(comment: PostComment): Boolean{
         return try {
-            database.allPhotographerPosts(photographerId)
+            database.addPostComment(comment)
+            true
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            false
+        }
+    }
+
+    fun getPhotographerPosts(photographerId: Int): ArrayList<Post> {
+        return try {
+            database.getPhotographerPosts(photographerId)
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
             arrayListOf()
         }
     }
 
-    fun getAllPosts(): ArrayList<Post> {
+    fun getPosts(): ArrayList<Post> {
         return try {
-            database.allPosts()
+            database.getPosts()
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            arrayListOf()
+        }
+    }
+
+    fun getPostComments(postId: Int): ArrayList<PostComment> {
+        return try {
+            database.getPostComments(postId)
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
             arrayListOf()

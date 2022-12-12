@@ -10,7 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.controllers.FromActivity
-import com.irinalyamina.appnetworkforphotographers.controllers.PostsAdapter
+import com.irinalyamina.appnetworkforphotographers.controllers.post.PostsAdapter
 import com.irinalyamina.appnetworkforphotographers.controllers.home.HomeActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.map.MapActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.messenger.MessengerActivity
@@ -59,8 +59,12 @@ class ProfileActivity : AppCompatActivity() {
                 binding.profilePhoto.setImageBitmap(photographer.profilePhoto)
             }
 
+            if (photographer.profileDescription != null) {
+                binding.textDescription.text = photographer.profileDescription
+            }
+
             val postService = PostService(this)
-            val listPosts = postService.getAllPhotographerPosts(photographer.id)
+            val listPosts = postService.getPhotographerPosts(photographer.id)
             if (listPosts.isNotEmpty()) {
                 postsAdapter.setListPosts(listPosts)
             }

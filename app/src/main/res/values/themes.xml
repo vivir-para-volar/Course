@@ -136,12 +136,12 @@
     <style name="user_photo_big">
         <item name="android:layout_width">70dp</item>
         <item name="android:layout_height">70dp</item>
-        <item name="android:src">@drawable/ic_profile</item>
+        <item name="android:src">@drawable/profile_photo</item>
     </style>
 
     <style name="user_photo_small" parent="toolbar_icon">
         <item name="android:padding">8dp</item>
-        <item name="android:src">@drawable/ic_profile</item>
+        <item name="android:src">@drawable/profile_photo</item>
     </style>
 
     <style name="photo_post_blog">
@@ -154,7 +154,7 @@
 
 
     <!-- Style for Post/Blog item -->
-    <style name="toolbar_user_name">
+    <style name="toolbar_username">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:textSize">24sp</item>
@@ -193,4 +193,21 @@
     </style>
 
 
+    <!-- Style for Comments -->
+    <style name="comment_username">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="comment_date">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
 </resources>

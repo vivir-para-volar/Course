@@ -61,12 +61,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
         <activity
-            android:name=".controllers.addpost.AddPostActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
-        <activity
-            android:name=".controllers.addpost.AddBlogActivity"
+            android:name=".controllers.profile.EditProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
@@ -76,7 +71,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
         <activity
-            android:name=".controllers.profile.EditProfileActivity"
+            android:name=".controllers.post.AddPostActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
+        <activity
+            android:name=".controllers.blog.AddBlogActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
+        <activity
+            android:name=".controllers.post.PostCommentsActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppNetworkForPhotographers.NoActionBar" />
