@@ -10,7 +10,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-class ImageProcessing (private var context: Context) {
+class ImageProcessing(private var context: Context) {
 
     private lateinit var mainDir: String
 
@@ -26,10 +26,9 @@ class ImageProcessing (private var context: Context) {
         val dir = File("$mainDir/photos/profile/$id")
         val fileName = "profile.jpg"
 
-        try{
+        try {
             writeImage(photoProfile, dir, fileName)
-        }
-        catch (exp: Exception){
+        } catch (exp: Exception) {
             throw Exception(context.getString(R.string.error_edit_profile_photo))
         }
 
@@ -40,10 +39,9 @@ class ImageProcessing (private var context: Context) {
         val dir = File("$mainDir/photos/post/$id")
         val fileName = "post.jpg"
 
-        try{
+        try {
             writeImage(bitmap, dir, fileName)
-        }
-        catch (exp: Exception){
+        } catch (exp: Exception) {
             throw Exception(context.getString(R.string.error_add_photo_post))
         }
 
@@ -53,22 +51,21 @@ class ImageProcessing (private var context: Context) {
     fun getPhoto(path: String): Bitmap {
         val dir = File("$mainDir/$path")
 
-        try{
+        try {
             val content = ByteArray(dir.length().toInt())
 
             val stream = FileInputStream(dir)
             stream.read(content)
 
             return BitmapFactory.decodeByteArray(content, 0, content.size)
-        }
-        catch (exp: Exception){
+        } catch (exp: Exception) {
             throw Exception(context.getString(R.string.error_get_photo))
         }
     }
 
-    private fun writeImage(bitmap: Bitmap, dir: File, fileName: String){
+    private fun writeImage(bitmap: Bitmap, dir: File, fileName: String) {
         try {
-            if(!dir.exists()){
+            if (!dir.exists()) {
                 dir.mkdirs()
             }
 

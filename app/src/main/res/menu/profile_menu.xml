@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".controllers.profile.UserProfileActivity">
 
     <item
@@ -12,7 +12,8 @@
     <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
-        android:title="@string/menu_settings" />
+        android:title="@string/menu_settings"
+        android:visible="false" />
 
     <item
         android:id="@+id/menu_sign_out"
@@ -21,15 +22,16 @@
 
     <item
         android:id="@+id/menu_add_post"
+        android:icon="@drawable/ic_add_post"
         android:orderInCategory="100"
         android:title="@string/menu_add_post"
-        android:icon="@drawable/ic_add_post"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menu_add_blog"
+        android:icon="@drawable/ic_add_blog"
         android:orderInCategory="100"
         android:title="@string/title_add_blog"
-        android:icon="@drawable/ic_add_blog"
-        app:showAsAction="always"/>
+        android:visible="false"
+        app:showAsAction="always" />
 </menu>

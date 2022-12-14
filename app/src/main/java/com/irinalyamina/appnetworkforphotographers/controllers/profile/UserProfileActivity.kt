@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.controllers.FromActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.post.PostsAdapter
 import com.irinalyamina.appnetworkforphotographers.controllers.blog.AddBlogActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.post.AddPostActivity
@@ -18,6 +19,7 @@ import com.irinalyamina.appnetworkforphotographers.controllers.authorization.Aut
 import com.irinalyamina.appnetworkforphotographers.controllers.home.HomeActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.map.MapActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.messenger.MessengerActivity
+import com.irinalyamina.appnetworkforphotographers.controllers.photographer.SubscriptionActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.search.SearchActivity
 import com.irinalyamina.appnetworkforphotographers.databinding.ActivityUserProfileBinding
 import com.irinalyamina.appnetworkforphotographers.service.PhotographerService
@@ -37,13 +39,27 @@ class UserProfileActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         onCreateBottomNavigationView()
+
         onTabLayout()
 
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(this)
-        postsAdapter = PostsAdapter(this)
+        postsAdapter = PostsAdapter(this, FromActivity.userProfile)
         binding.recyclerViewPosts.adapter = postsAdapter
 
         initialDate()
+
+        binding.btnFollowers.setOnClickListener {
+            btnFollowersOnClickListener(
+                PhotographerService.getCurrentUser().id,
+                FromActivity.userProfile
+            )
+        }
+        binding.btnFollowing.setOnClickListener {
+            btnFollowingOnClickListener(
+                PhotographerService.getCurrentUser().id,
+                FromActivity.userProfile
+            )
+        }
     }
 
     private fun initialDate() {
@@ -59,11 +75,33 @@ class UserProfileActivity : AppCompatActivity() {
             binding.textDescription.text = photographer.profileDescription
         }
 
+        val photographerService = PhotographerService(this)
+        binding.textFollowers.text =
+            photographerService.getCountFollowers(photographer.id).toString()
+        binding.textFollowing.text =
+            photographerService.getCountFollowing(photographer.id).toString()
+
         val postService = PostService(this@UserProfileActivity)
         val listPosts = postService.getPhotographerPosts(photographer.id)
         if (listPosts.isNotEmpty()) {
             postsAdapter.setListPosts(listPosts)
         }
+    }
+
+    private fun btnFollowersOnClickListener(photographerId: Int, fromActivity: String) {
+        val intent = Intent(this, SubscriptionActivity::class.java)
+        intent.putExtra("photographerId", photographerId)
+        intent.putExtra("whatActivity", "followers")
+        intent.putExtra("fromActivity", fromActivity)
+        startActivity(intent)
+    }
+
+    private fun btnFollowingOnClickListener(photographerId: Int, fromActivity: String) {
+        val intent = Intent(this, SubscriptionActivity::class.java)
+        intent.putExtra("photographerId", photographerId)
+        intent.putExtra("whatActivity", "following")
+        intent.putExtra("fromActivity", fromActivity)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -98,10 +136,10 @@ class UserProfileActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun onTabLayout(){
+    private fun onTabLayout() {
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                when(binding.tabLayout.selectedTabPosition){
+                when (binding.tabLayout.selectedTabPosition) {
                     0 -> {
                         binding.constraintLayoutAbout.visibility = View.VISIBLE
                         binding.recyclerViewPosts.visibility = View.GONE
@@ -125,7 +163,7 @@ class UserProfileActivity : AppCompatActivity() {
         })
     }
 
-    private fun onCreateBottomNavigationView(){
+    private fun onCreateBottomNavigationView() {
         val bottomNavView: BottomNavigationView = binding.bottomNavView
         bottomNavView.selectedItemId = R.id.nav_profile
 
@@ -133,22 +171,22 @@ class UserProfileActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_home -> {
                     startActivity(Intent(applicationContext, HomeActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_search -> {
                     startActivity(Intent(applicationContext, SearchActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_map -> {
                     startActivity(Intent(applicationContext, MapActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_messenger -> {
                     startActivity(Intent(applicationContext, MessengerActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_profile -> {

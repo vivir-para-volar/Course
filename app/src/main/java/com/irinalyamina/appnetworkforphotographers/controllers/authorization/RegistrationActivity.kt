@@ -22,7 +22,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         binding.textLink.setOnClickListener {
             startActivity(Intent(this, AuthorizationActivity::class.java))
-            overridePendingTransition(0,0)
+            overridePendingTransition(0, 0)
         }
 
         binding.btnRegistration.setOnClickListener { btnRegistrationOnClickListener() }
@@ -54,7 +54,7 @@ class RegistrationActivity : AppCompatActivity() {
             ShowMessage.toast(this, getString(R.string.empty_password))
             return
         }
-        if(password != confirmPassword){
+        if (password != confirmPassword) {
             ShowMessage.toast(this, getString(R.string.error_password))
             return
         }
@@ -64,9 +64,9 @@ class RegistrationActivity : AppCompatActivity() {
         val service = PhotographerService(this)
         val answer = service.registration(newUser)
 
-        if(answer){
+        if (answer) {
             startActivity(Intent(this, AuthorizationActivity::class.java))
-            overridePendingTransition(0,0)
+            overridePendingTransition(0, 0)
         }
     }
 }

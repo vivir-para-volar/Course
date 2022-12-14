@@ -69,20 +69,10 @@ class DatabasePost(private var context: Context) {
         }
     }
 
-    /*fun update(post: Post, photoPost: Bitmap): Int {
-        val cv = ContentValues()
-        cv.put("PathPhoto", post.pathPhoto)
-        cv.put("Caption", post.caption)
-
-        val countRaw = db.update("Posts", cv, "Id=?", arrayOf(post.id.toString()))
-        return countRaw
-    }
-
     fun delete(id: Int): Int {
         val countRaw = db.delete("Posts", "Id=?", arrayOf(id.toString()))
         return countRaw
-    }*/
-
+    }
 
     fun addLike(postId: Int, photographerId: Int): Long {
         val cv = ContentValues()
@@ -120,7 +110,7 @@ class DatabasePost(private var context: Context) {
         val id: Long = db.insert("PostComments", null, cv)
 
         if (id == -1L) {
-            throw Exception(context.getString(R.string.error_add_like))
+            throw Exception(context.getString(R.string.error_add_comment))
         }
 
         return id
@@ -143,7 +133,7 @@ class DatabasePost(private var context: Context) {
         return getListPosts(cursor)
     }
 
-    fun getPostComments(postId: Int): ArrayList<PostComment>{
+    fun getPostComments(postId: Int): ArrayList<PostComment> {
         val list = arrayListOf<PostComment>()
 
         val query = "SELECT * FROM PostComments WHERE PostId = '$postId'"
@@ -241,7 +231,7 @@ class DatabasePost(private var context: Context) {
         return list
     }
 
-    private fun getCountPostComments(postId: Int): Int{
+    private fun getCountPostComments(postId: Int): Int {
         val query = "SELECT COUNT(*) FROM PostComments WHERE PostId = '$postId'"
         val cursor: Cursor = db.rawQuery(query, null)
 

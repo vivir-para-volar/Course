@@ -8,19 +8,19 @@
     <item
         android:id="@+id/nav_search"
         android:icon="@drawable/ic_search"
-        android:title="@string/menu_search"/>
+        android:title="@string/menu_search" />
 
     <item
         android:id="@+id/nav_map"
         android:icon="@drawable/ic_map"
         android:title="@string/menu_map"
-        android:visible="false"/>
+        android:visible="false" />
 
     <item
         android:id="@+id/nav_messenger"
         android:icon="@drawable/ic_messenger_black"
         android:title="@string/menu_messenger"
-        android:visible="false"/>
+        android:visible="false" />
 
     <item
         android:id="@+id/nav_profile"

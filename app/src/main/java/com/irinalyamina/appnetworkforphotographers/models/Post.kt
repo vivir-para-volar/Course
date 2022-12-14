@@ -1,7 +1,6 @@
 package com.irinalyamina.appnetworkforphotographers.models
 
 import android.graphics.Bitmap
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.ArrayList
 

@@ -24,20 +24,23 @@ class PostCommentsActivity : AppCompatActivity() {
         binding = ActivityPostCommentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val fromActivity = intent.getStringExtra("fromActivity")
+        val postId = intent.getIntExtra("postId", -1)
+        if (fromActivity == null || postId == -1) {
+            finish()
+        }
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         binding.recyclerViewComments.layoutManager = LinearLayoutManager(this)
-        postCommentsAdapter = PostCommentsAdapter(this)
+        postCommentsAdapter = PostCommentsAdapter(this, fromActivity!!)
         binding.recyclerViewComments.adapter = postCommentsAdapter
 
-        val postId = intent.getIntExtra("postId", -1)
-        if(postId != -1){
-            initialDate(postId)
+        initialDate(postId)
 
-            binding.btnAddComment.setOnClickListener{ btnAddCommentOnClickListener(postId) }
-        }
+        binding.btnAddComment.setOnClickListener { btnAddCommentOnClickListener(postId) }
     }
 
     private fun initialDate(postId: Int) {
@@ -60,7 +63,13 @@ class PostCommentsActivity : AppCompatActivity() {
         (binding.editTextComment as TextView).text = ""
 
         val photographer = PhotographerService.getCurrentUser()
-        val comment = PostComment(text, postId, photographer.id, photographer.username, photographer.profilePhoto)
+        val comment = PostComment(
+            text,
+            postId,
+            photographer.id,
+            photographer.username,
+            photographer.profilePhoto
+        )
 
         val service = PostService(this)
         val answer = service.addPostComment(comment)

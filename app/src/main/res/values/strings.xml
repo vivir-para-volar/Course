@@ -50,6 +50,10 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_sign_out">Sign out</string>
 
+    <!-- Subscriptions -->
+    <string name="text_followers">followers</string>
+    <string name="text_following">following</string>
+
     <!-- Edit Profile -->
     <string name="title_edit_profile">Edit profile</string>
     <string name="btn_change_photo">Change photo</string>
@@ -89,6 +93,8 @@
     <string name="error_unique_email">This email is already in use</string>
 
     <string name="error_get_photo">Error getting photo. Try again</string>
+    <string name="error_add_subscription">Error adding subscription. Try again</string>
+    <string name="error_delete_subscription">Error when deleting subscription. Try again</string>
 
     <string name="error_edit_profile">Error when changing profile. Try again</string>
     <string name="error_edit_profile_photo">Error when changing profile photo. Try again</string>
@@ -99,4 +105,5 @@
     <string name="error_delete_post">Error when deleting a post. Try again</string>
     <string name="error_add_like">Error adding like. Try again</string>
     <string name="error_delete_like">Error when deleting like. Try again</string>
+    <string name="error_add_comment">Error adding comment. Try again</string>
 </resources>

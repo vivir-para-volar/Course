@@ -29,7 +29,17 @@ class PostService(private var context: Context) {
         }
     }
 
-    fun addLike(postId: Int, photographerId: Int): Boolean{
+    fun deletePost(postId: Int): Boolean {
+        return try {
+            database.delete(postId)
+            true
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            false
+        }
+    }
+
+    fun addLike(postId: Int, photographerId: Int): Boolean {
         return try {
             database.addLike(postId, photographerId)
             true
@@ -39,7 +49,7 @@ class PostService(private var context: Context) {
         }
     }
 
-    fun deleteLike(postId: Int, photographerId: Int): Boolean{
+    fun deleteLike(postId: Int, photographerId: Int): Boolean {
         return try {
             database.deleteLike(postId, photographerId)
             true
@@ -49,7 +59,7 @@ class PostService(private var context: Context) {
         }
     }
 
-    fun addPostComment(comment: PostComment): Boolean{
+    fun addPostComment(comment: PostComment): Boolean {
         return try {
             database.addPostComment(comment)
             true

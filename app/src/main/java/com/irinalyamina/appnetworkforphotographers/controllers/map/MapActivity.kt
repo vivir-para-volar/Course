@@ -23,7 +23,7 @@ class MapActivity : AppCompatActivity() {
         onCreateBottomNavigationView()
     }
 
-    private fun onCreateBottomNavigationView(){
+    private fun onCreateBottomNavigationView() {
         val bottomNavView: BottomNavigationView = binding.bottomNavView
         bottomNavView.selectedItemId = R.id.nav_map
 
@@ -31,12 +31,12 @@ class MapActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_home -> {
                     startActivity(Intent(applicationContext, HomeActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_search -> {
                     startActivity(Intent(applicationContext, SearchActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_map -> {
@@ -44,12 +44,12 @@ class MapActivity : AppCompatActivity() {
                 }
                 R.id.nav_messenger -> {
                     startActivity(Intent(applicationContext, MessengerActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_profile -> {
                     startActivity(Intent(applicationContext, UserProfileActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
             }

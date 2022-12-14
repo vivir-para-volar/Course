@@ -10,7 +10,7 @@ import java.io.IOException
 import java.sql.SQLException
 import java.util.ArrayList
 
-class DatabaseCategory (private var context: Context) {
+class DatabaseCategory(context: Context) {
 
     private var dbHelper: DatabaseHelper = DatabaseHelper(context)
     private var db: SQLiteDatabase

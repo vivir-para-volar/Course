@@ -32,6 +32,8 @@
 
     <!-- Theme for Profile -->
     <style name="image_btn_message_profile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:backgroundTint">?attr/colorPrimary</item>
         <item name="android:src">@drawable/ic_messenger_black</item>
     </style>

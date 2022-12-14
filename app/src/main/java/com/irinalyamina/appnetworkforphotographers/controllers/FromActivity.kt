@@ -6,6 +6,6 @@ class FromActivity {
         const val search = "Search"
         const val map = "Map"
         const val messenger = "Messenger"
-        const val profile = "Profile"
+        const val userProfile = "UserProfile"
     }
 }

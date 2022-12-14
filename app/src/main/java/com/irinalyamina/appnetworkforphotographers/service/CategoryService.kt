@@ -6,7 +6,7 @@ import com.irinalyamina.appnetworkforphotographers.database.DatabaseCategory
 import com.irinalyamina.appnetworkforphotographers.models.Category
 import com.irinalyamina.appnetworkforphotographers.models.CategoryDirectory
 
-class CategoryService (private var context: Context) {
+class CategoryService(private var context: Context) {
 
     private lateinit var database: DatabaseCategory
 
@@ -25,11 +25,11 @@ class CategoryService (private var context: Context) {
 
             val hashMap = LinkedHashMap<CategoryDirectory, ArrayList<Category>>()
 
-            for(categoryDirectory in listCategoryDirectories){
+            for (categoryDirectory in listCategoryDirectories) {
                 val list = arrayListOf<Category>()
 
-                for(category in listCategories){
-                    if(category.categoryDirectoryId == categoryDirectory.id){
+                for (category in listCategories) {
+                    if (category.categoryDirectoryId == categoryDirectory.id) {
                         list.add(category)
                     }
                 }

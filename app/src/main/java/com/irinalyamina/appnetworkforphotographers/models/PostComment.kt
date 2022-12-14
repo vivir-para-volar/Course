@@ -1,7 +1,6 @@
 package com.irinalyamina.appnetworkforphotographers.models
 
 import android.graphics.Bitmap
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class PostComment {
@@ -14,7 +13,13 @@ class PostComment {
     var photographerUsername: String
     var photographerProfilePhoto: Bitmap?
 
-    constructor(text: String, postId: Int, photographerId: Int, photographerUsername: String, photographerProfilePhoto: Bitmap?) {
+    constructor(
+        text: String,
+        postId: Int,
+        photographerId: Int,
+        photographerUsername: String,
+        photographerProfilePhoto: Bitmap?
+    ) {
         this.id = -1
         this.date = LocalDateTime.now()
         this.text = text

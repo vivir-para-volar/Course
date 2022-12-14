@@ -11,8 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="25dp"
-        android:paddingHorizontal="20dp">
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="25dp">
 
         <TextView
             android:id="@+id/title_text"
@@ -71,7 +71,7 @@
 
         <Button
             android:id="@+id/btn_authorization"
-            style="@style/button_authorization_registration"
+            style="@style/btn_authorization_registration"
             android:layout_marginTop="30dp"
             android:text="@string/btn_authorization"
             app:layout_constraintEnd_toEndOf="parent"

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.controllers.FromActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.post.PostsAdapter
 import com.irinalyamina.appnetworkforphotographers.controllers.map.MapActivity
 import com.irinalyamina.appnetworkforphotographers.controllers.messenger.MessengerActivity
@@ -28,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
         onCreateBottomNavigationView()
 
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(this)
-        postsAdapter = PostsAdapter(this)
+        postsAdapter = PostsAdapter(this, FromActivity.home)
         binding.recyclerViewPosts.adapter = postsAdapter
 
         initialDate()
@@ -42,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun onCreateBottomNavigationView(){
+    private fun onCreateBottomNavigationView() {
         val bottomNavView: BottomNavigationView = binding.bottomNavView
         bottomNavView.selectedItemId = R.id.nav_home
 
@@ -53,22 +54,22 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.nav_search -> {
                     startActivity(Intent(applicationContext, SearchActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_map -> {
                     startActivity(Intent(applicationContext, MapActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_messenger -> {
                     startActivity(Intent(applicationContext, MessengerActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_profile -> {
                     startActivity(Intent(applicationContext, UserProfileActivity::class.java))
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                     return@setOnItemSelectedListener true
                 }
             }

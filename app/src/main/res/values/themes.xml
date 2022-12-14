@@ -53,6 +53,23 @@
         <item name="android:textSize">21sp</item>
     </style>
 
+    <style name="toolbar_multiline_line1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingVertical">1dp</item>
+    </style>
+
+    <style name="toolbar_multiline_line2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingVertical">5dp</item>
+    </style>
+
 
     <!-- Style for EditText -->
     <style name="text_input_layout">
@@ -100,9 +117,7 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="button_authorization_registration">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="btn_authorization_registration" parent="button">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">21sp</item>
         <item name="android:backgroundTint">@color/black</item>
@@ -124,9 +139,20 @@
         <item name="android:layout_height">48dp</item>
     </style>
 
+    <style name="btn_subscribe" parent="button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+    </style>
 
-    <!-- Style for Profile -->
+    <style name="btn_unsubscribe" parent="button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:backgroundTint">@color/light_gray</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="image_btn_message_profile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:backgroundTint">?attr/colorPrimary</item>
         <item name="android:src">@drawable/ic_messenger_white</item>
     </style>
@@ -154,23 +180,6 @@
 
 
     <!-- Style for Post/Blog item -->
-    <style name="toolbar_username">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:paddingHorizontal">5dp</item>
-        <item name="android:paddingVertical">1dp</item>
-    </style>
-
-    <style name="toolbar_upload_date">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:gravity">bottom</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:paddingHorizontal">5dp</item>
-        <item name="android:paddingVertical">5dp</item>
-    </style>
-
     <style name="img_icon_below">
         <item name="android:layout_width">45dp</item>
         <item name="android:layout_height">45dp</item>

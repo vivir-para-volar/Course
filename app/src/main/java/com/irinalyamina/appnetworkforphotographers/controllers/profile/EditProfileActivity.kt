@@ -69,7 +69,15 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         val changedUser =
-            Photographer(PhotographerService.getCurrentUser().id, username, name, birthday, email, null, null)
+            Photographer(
+                PhotographerService.getCurrentUser().id,
+                username,
+                name,
+                birthday,
+                email,
+                null,
+                null
+            )
 
         val service = PhotographerService(this)
         val answer = service.editProfile(changedUser)

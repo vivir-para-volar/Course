@@ -6,12 +6,15 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
 import android.net.Uri
+import android.print.PrintJob
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
+import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
 import java.io.IOException
 import java.lang.Exception
 import java.sql.SQLException
+import java.time.LocalDate
 
 class DatabasePhotographer(private var context: Context) {
 
@@ -40,7 +43,8 @@ class DatabasePhotographer(private var context: Context) {
     }
 
     fun authorization(username: String, password: String) {
-        val query = "SELECT Id, Name, Birthday, Email, PathProfilePhoto, ProfileDescription FROM Photographers " +
+        val query =
+            "SELECT Id, Name, Birthday, Email, PathProfilePhoto, ProfileDescription FROM Photographers " +
                     "WHERE Username = '$username' AND Password = '$password'"
 
         val cursor: Cursor = db.rawQuery(query, null)
@@ -141,7 +145,8 @@ class DatabasePhotographer(private var context: Context) {
     }
 
     fun getPhotographerById(id: Int): Photographer {
-        val query = "SELECT Username, Name, Birthday, Email, PathProfilePhoto, ProfileDescription FROM Photographers WHERE Id = '$id'"
+        val query =
+            "SELECT Username, Name, Birthday, Email, PathProfilePhoto, ProfileDescription FROM Photographers WHERE Id = '$id'"
 
         val cursor: Cursor = db.rawQuery(query, null)
 
@@ -165,5 +170,117 @@ class DatabasePhotographer(private var context: Context) {
         }
 
         return Photographer(id, username, name, birthday, email, profilePhoto, profileDescription)
+    }
+
+    fun addSubscription(photographerId: Int, subscriberId: Int): Long {
+        val cv = ContentValues()
+        cv.put("PhotographerId", photographerId)
+        cv.put("SubscriberId", subscriberId)
+
+        val id: Long = db.insert("Subscriptions", null, cv)
+
+        if (id == -1L) {
+            throw Exception(context.getString(R.string.error_add_subscription))
+        }
+
+        return id
+    }
+
+    fun deleteSubscription(photographerId: Int, subscriberId: Int) {
+        val countRaw = db.delete(
+            "Subscriptions",
+            "PhotographerId = ? AND SubscriberId = ?",
+            arrayOf(photographerId.toString(), subscriberId.toString())
+        )
+
+        if (countRaw != 1) {
+            throw Exception(context.getString(R.string.error_delete_subscription))
+        }
+    }
+
+    fun checkSubscription(photographerId: Int, subscriberId: Int): Boolean {
+        val query =
+            "SELECT COUNT(*) FROM Subscriptions WHERE PhotographerId = '$photographerId' AND SubscriberId = '$subscriberId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        cursor.moveToFirst()
+        val count = cursor.getInt(0)
+        return count == 1
+    }
+
+    fun getCountFollowers(photographerId: Int): Int {
+        val query = "SELECT COUNT(*) FROM Subscriptions WHERE PhotographerId = '$photographerId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        cursor.moveToFirst()
+        val count = cursor.getInt(0)
+        return count
+    }
+
+    fun getCountFollowing(photographerId: Int): Int {
+        val query = "SELECT COUNT(*) FROM Subscriptions WHERE SubscriberId = '$photographerId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        cursor.moveToFirst()
+        val count = cursor.getInt(0)
+        return count
+    }
+
+    fun getFollowers(photographerId: Int): ArrayList<Photographer> {
+        val list = arrayListOf<Photographer>()
+
+        val query =
+            "SELECT SubscriberId FROM Subscriptions WHERE PhotographerId = '$photographerId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val subscriberId = cursor.getInt(0)
+
+            val subscriber = getPhotographerShortInfoById(subscriberId)
+            list.add(subscriber)
+        }
+
+        return list
+    }
+
+    fun getFollowing(photographerId: Int): ArrayList<Photographer> {
+        val list = arrayListOf<Photographer>()
+
+        val query =
+            "SELECT PhotographerId FROM Subscriptions WHERE SubscriberId = '$photographerId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val photographerId = cursor.getInt(0)
+
+            val photographer = getPhotographerShortInfoById(photographerId)
+            list.add(photographer)
+        }
+
+        return list
+    }
+
+    private fun getPhotographerShortInfoById(id: Int): Photographer {
+        val query = "SELECT Username, Name, PathProfilePhoto FROM Photographers WHERE Id = '$id'"
+
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        if (cursor.count == 0) {
+            throw Exception(context.getString(R.string.error_get_by_id))
+        }
+
+        cursor.moveToFirst()
+
+        val username = cursor.getString(0)
+        val name = cursor.getString(1)
+        val pathProfilePhoto = cursor.getString(2)
+
+        var profilePhoto: Bitmap? = null
+        if (pathProfilePhoto != null) {
+            val imageProcessing = ImageProcessing(context)
+            profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
+        }
+
+        return Photographer(id, username, name, LocalDate.now(), "", profilePhoto, null)
     }
 }
