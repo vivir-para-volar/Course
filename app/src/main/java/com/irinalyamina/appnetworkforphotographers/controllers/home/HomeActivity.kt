@@ -28,9 +28,9 @@ class HomeActivity : AppCompatActivity() {
 
         onCreateBottomNavigationView()
 
-        binding.recyclerViewPosts.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewNews.layoutManager = LinearLayoutManager(this)
         postsAdapter = PostsAdapter(this, FromActivity.home)
-        binding.recyclerViewPosts.adapter = postsAdapter
+        binding.recyclerViewNews.adapter = postsAdapter
 
         initialDate()
     }

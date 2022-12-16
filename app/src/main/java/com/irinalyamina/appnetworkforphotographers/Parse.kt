@@ -5,8 +5,10 @@ import android.content.Context
 import android.widget.ImageButton
 import android.widget.TextView
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -16,9 +18,10 @@ class Parse {
         private const val formatDateTime = "dd.MM.yyyy HH:mm"
         private const val formatDate = "dd.MM.yyyy"
 
-
         private val dateTimeFormatter = DateTimeFormatter.ofPattern(formatDateTime)
         private val dateFormatter = DateTimeFormatter.ofPattern(formatDate)
+
+        var zoneId: ZoneId = ZoneId.systemDefault()
 
 
         fun stringToDate(date: String): LocalDate {
@@ -36,6 +39,23 @@ class Parse {
         fun dateTimeToString(dateTime: LocalDateTime): String {
             return dateTimeFormatter.format(dateTime)
         }
+
+        fun dateToUnixTime(date: LocalDate): Long {
+            return date.atStartOfDay(zoneId).toEpochSecond()
+        }
+
+        fun unixTimeToDate(date: Long): LocalDate {
+            return Instant.ofEpochSecond(date).atZone(zoneId).toLocalDate()
+        }
+
+        fun dateTimeToUnixTime(dateTime: LocalDateTime): Long {
+            return dateTime.atZone(zoneId).toEpochSecond()
+        }
+
+        fun unixTimeToDateTime(dateTime: Long): LocalDateTime {
+            return LocalDateTime.ofInstant(Instant.ofEpochSecond(dateTime), zoneId)
+        }
+
 
         fun onDatePicker(context: Context, textView: TextView, button: ImageButton) {
             textView.text = SimpleDateFormat(formatDate).format(System.currentTimeMillis())

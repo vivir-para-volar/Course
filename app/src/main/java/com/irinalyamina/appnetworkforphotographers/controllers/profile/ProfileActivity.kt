@@ -102,7 +102,7 @@ class ProfileActivity : AppCompatActivity() {
                 binding.textPhotographyEquipment.text = photographer.photographyEquipment
             }
 
-            if (photographer.photographyAwards != null  && photographer.photographyAwards!!.isNotEmpty()) {
+            if (photographer.photographyAwards != null && photographer.photographyAwards!!.isNotEmpty()) {
                 binding.textPhotographyAwards.text = photographer.photographyAwards
             }
 

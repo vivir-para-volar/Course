@@ -54,7 +54,7 @@ class DatabasePhotographer(private var context: Context) {
 
         val id = cursor.getInt(0)
         val name = cursor.getString(2)
-        val birthday = Parse.stringToDate(cursor.getString(3))
+        val birthday = Parse.unixTimeToDate(cursor.getLong(3))
         val email = cursor.getString(4)
         val pathProfilePhoto = cursor.getString(6)
         val profileDescription = cursor.getString(8)
@@ -71,7 +71,7 @@ class DatabasePhotographer(private var context: Context) {
         val dateTimeNow = LocalDateTime.now()
 
         val cv = ContentValues()
-        cv.put("LastLoginDate", Parse.dateTimeToString(dateTimeNow))
+        cv.put("LastLoginDate", Parse.dateTimeToUnixTime(dateTimeNow))
 
         val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(id.toString()))
         if (count == 0) {
@@ -88,10 +88,10 @@ class DatabasePhotographer(private var context: Context) {
         val cv = ContentValues()
         cv.put("Username", newUser.username)
         cv.put("Name", newUser.name)
-        cv.put("Birthday", Parse.dateToString(newUser.birthday))
+        cv.put("Birthday", Parse.dateToUnixTime(newUser.birthday))
         cv.put("Email", newUser.email)
         cv.put("Password", newUser.password)
-        cv.put("LastLoginDate", Parse.dateTimeToString(newUser.lastLoginDate))
+        cv.put("LastLoginDate", Parse.dateTimeToUnixTime(newUser.lastLoginDate))
 
         val id: Long = db.insert("Photographers", null, cv)
 
@@ -129,7 +129,7 @@ class DatabasePhotographer(private var context: Context) {
         val cv = ContentValues()
         cv.put("Username", changedUser.username)
         cv.put("Name", changedUser.name)
-        cv.put("Birthday", Parse.dateToString(changedUser.birthday))
+        cv.put("Birthday", Parse.dateToUnixTime(changedUser.birthday))
         cv.put("Email", changedUser.email)
 
         val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(user?.id.toString()))
@@ -187,10 +187,10 @@ class DatabasePhotographer(private var context: Context) {
 
         val username = cursor.getString(1)
         val name = cursor.getString(2)
-        val birthday = Parse.stringToDate(cursor.getString(3))
+        val birthday = Parse.unixTimeToDate(cursor.getLong(3))
         val email = cursor.getString(4)
         val pathProfilePhoto = cursor.getString(6)
-        val lastLoginDate = Parse.stringToDateTime(cursor.getString(7))
+        val lastLoginDate = Parse.unixTimeToDateTime(cursor.getLong(7))
         val profileDescription = cursor.getString(8)
         val photographyEquipment = cursor.getString(9)
         val photographyAwards = cursor.getString(10)
@@ -201,7 +201,8 @@ class DatabasePhotographer(private var context: Context) {
             profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
         }
 
-        val photographer = Photographer(id, username, name, birthday, email, profilePhoto, lastLoginDate)
+        val photographer =
+            Photographer(id, username, name, birthday, email, profilePhoto, lastLoginDate)
         photographer.profileDescription = profileDescription
         photographer.photographyEquipment = photographyEquipment
         photographer.photographyAwards = photographyAwards

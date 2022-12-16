@@ -65,6 +65,10 @@ class EditProfileActivity : AppCompatActivity() {
         if (user.profilePhoto != null) {
             binding.profilePhoto.setImageBitmap(user.profilePhoto)
         }
+
+        (binding.editTextProfileDescription as TextView).text = user.profileDescription
+        (binding.editTextPhotographyEquipment as TextView).text = user.photographyEquipment
+        (binding.editTextPhotographyAwards as TextView).text = user.photographyAwards
     }
 
     private fun btnChangeProfileOnClickListener() {

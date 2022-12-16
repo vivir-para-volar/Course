@@ -38,7 +38,7 @@ class DatabasePost(private var context: Context) {
         val cv = ContentValues()
         cv.put("PathPhoto", "pathPhoto")
         cv.put("Caption", newPost.caption)
-        cv.put("UploadDate", Parse.dateTimeToString(newPost.uploadDate))
+        cv.put("UploadDate", Parse.dateTimeToUnixTime(newPost.uploadDate))
         cv.put("PhotographerId", newPost.photographerId)
         cv.put("CategoryId", newPost.categoryId)
 
@@ -103,7 +103,7 @@ class DatabasePost(private var context: Context) {
 
     fun addPostComment(postComment: PostComment): Long {
         val cv = ContentValues()
-        cv.put("Date", Parse.dateTimeToString(postComment.date))
+        cv.put("Date", Parse.dateTimeToUnixTime(postComment.date))
         cv.put("Text", postComment.text)
         cv.put("PostId", postComment.postId)
         cv.put("PhotographerId", postComment.photographerId)
@@ -121,14 +121,15 @@ class DatabasePost(private var context: Context) {
     fun getPhotographerPosts(photographerId: Int): ArrayList<Post> {
         val photographer = getPhotographerById(photographerId)
 
-        val query = "SELECT * FROM Posts WHERE PhotographerId = '$photographerId' ORDER BY Id DESC"
+        val query =
+            "SELECT * FROM Posts WHERE PhotographerId = '$photographerId' ORDER BY UploadDate DESC"
         val cursor: Cursor = db.rawQuery(query, null)
 
         return getListPosts(cursor, photographer)
     }
 
     fun getPosts(): ArrayList<Post> {
-        val query = "SELECT * FROM Posts ORDER BY Id DESC"
+        val query = "SELECT * FROM Posts ORDER BY UploadDate DESC"
         val cursor: Cursor = db.rawQuery(query, null)
 
         return getListPosts(cursor)
@@ -142,7 +143,7 @@ class DatabasePost(private var context: Context) {
 
         while (cursor.moveToNext()) {
             val id = cursor.getInt(0)
-            val date = Parse.stringToDateTime(cursor.getString(1))
+            val date = Parse.unixTimeToDateTime(cursor.getLong(1))
             val text = cursor.getString(2)
             val postId = cursor.getInt(3)
             val photographerId = cursor.getInt(4)
@@ -170,7 +171,7 @@ class DatabasePost(private var context: Context) {
             val id = cursor.getInt(0)
             val pathPhoto = cursor.getString(1)
             val caption = cursor.getString(2)
-            val uploadDate = Parse.stringToDateTime(cursor.getString(3))
+            val uploadDate = Parse.unixTimeToDateTime(cursor.getLong(3))
             val photographerId = cursor.getInt(4)
             val categoryId = cursor.getInt(5)
 
