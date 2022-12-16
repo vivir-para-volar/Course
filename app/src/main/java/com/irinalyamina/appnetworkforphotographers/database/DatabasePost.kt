@@ -13,6 +13,7 @@ import com.irinalyamina.appnetworkforphotographers.models.PostComment
 import java.io.IOException
 import java.sql.SQLException
 import java.time.LocalDate
+import java.time.LocalDateTime
 import kotlin.collections.ArrayList
 
 class DatabasePost(private var context: Context) {
@@ -215,7 +216,15 @@ class DatabasePost(private var context: Context) {
             profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
         }
 
-        return Photographer(id, username, "", LocalDate.now(), "", profilePhoto, null)
+        return Photographer(
+            id,
+            username,
+            "",
+            LocalDate.now(),
+            "",
+            profilePhoto,
+            LocalDateTime.now()
+        )
     }
 
     private fun getAllLikes(postId: Int): ArrayList<Int> {

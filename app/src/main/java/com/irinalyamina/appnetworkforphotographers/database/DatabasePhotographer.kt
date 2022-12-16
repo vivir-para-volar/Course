@@ -5,16 +5,14 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
-import android.net.Uri
-import android.print.PrintJob
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
-import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
 import java.io.IOException
 import java.lang.Exception
 import java.sql.SQLException
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class DatabasePhotographer(private var context: Context) {
 
@@ -44,23 +42,24 @@ class DatabasePhotographer(private var context: Context) {
 
     fun authorization(username: String, password: String) {
         val query =
-            "SELECT Id, Name, Birthday, Email, PathProfilePhoto, ProfileDescription FROM Photographers " +
-                    "WHERE Username = '$username' AND Password = '$password'"
+            "SELECT * FROM Photographers WHERE Username = '$username' AND Password = '$password'"
 
         val cursor: Cursor = db.rawQuery(query, null)
 
         if (cursor.count == 0) {
-            throw Exception(context.getString(R.string.error_authorization))
+            throw Exception(context.getString(R.string.error_incorrect_username_password))
         }
 
         cursor.moveToFirst()
 
         val id = cursor.getInt(0)
-        val name = cursor.getString(1)
-        val birthday = Parse.stringToDate(cursor.getString(2))
-        val email = cursor.getString(3)
-        val pathProfilePhoto = cursor.getString(4)
-        val profileDescription = cursor.getString(5)
+        val name = cursor.getString(2)
+        val birthday = Parse.stringToDate(cursor.getString(3))
+        val email = cursor.getString(4)
+        val pathProfilePhoto = cursor.getString(6)
+        val profileDescription = cursor.getString(8)
+        val photographyEquipment = cursor.getString(9)
+        val photographyAwards = cursor.getString(10)
 
         var profilePhoto: Bitmap? = null
         if (pathProfilePhoto != null) {
@@ -68,7 +67,21 @@ class DatabasePhotographer(private var context: Context) {
             profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
         }
 
-        user = Photographer(id, username, name, birthday, email, profilePhoto, profileDescription)
+
+        val dateTimeNow = LocalDateTime.now()
+
+        val cv = ContentValues()
+        cv.put("LastLoginDate", Parse.dateTimeToString(dateTimeNow))
+
+        val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(id.toString()))
+        if (count == 0) {
+            throw Exception(context.getString(R.string.error_authorization))
+        }
+
+        user = Photographer(id, username, name, birthday, email, profilePhoto, dateTimeNow)
+        user!!.profileDescription = profileDescription
+        user!!.photographyEquipment = photographyEquipment
+        user!!.photographyAwards = photographyAwards
     }
 
     fun registration(newUser: Photographer): Long {
@@ -78,6 +91,7 @@ class DatabasePhotographer(private var context: Context) {
         cv.put("Birthday", Parse.dateToString(newUser.birthday))
         cv.put("Email", newUser.email)
         cv.put("Password", newUser.password)
+        cv.put("LastLoginDate", Parse.dateTimeToString(newUser.lastLoginDate))
 
         val id: Long = db.insert("Photographers", null, cv)
 
@@ -111,7 +125,7 @@ class DatabasePhotographer(private var context: Context) {
         }
     }
 
-    fun updateUser(changedUser: Photographer) {
+    fun updateUserInfo(changedUser: Photographer) {
         val cv = ContentValues()
         cv.put("Username", changedUser.username)
         cv.put("Name", changedUser.name)
@@ -144,9 +158,24 @@ class DatabasePhotographer(private var context: Context) {
         user?.profilePhoto = userPhoto
     }
 
+    fun updateProfileInfo(changedUser: Photographer) {
+        val cv = ContentValues()
+        cv.put("ProfileDescription", changedUser.profileDescription)
+        cv.put("PhotographyEquipment", changedUser.photographyEquipment)
+        cv.put("PhotographyAwards", changedUser.photographyAwards)
+
+        val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(user?.id.toString()))
+        if (count == 0) {
+            throw Exception(context.getString(R.string.error_edit_profile))
+        }
+
+        user?.profileDescription = changedUser.profileDescription
+        user?.photographyEquipment = changedUser.photographyEquipment
+        user?.photographyAwards = changedUser.photographyAwards
+    }
+
     fun getPhotographerById(id: Int): Photographer {
-        val query =
-            "SELECT Username, Name, Birthday, Email, PathProfilePhoto, ProfileDescription FROM Photographers WHERE Id = '$id'"
+        val query = "SELECT * FROM Photographers WHERE Id = '$id'"
 
         val cursor: Cursor = db.rawQuery(query, null)
 
@@ -156,12 +185,15 @@ class DatabasePhotographer(private var context: Context) {
 
         cursor.moveToFirst()
 
-        val username = cursor.getString(0)
-        val name = cursor.getString(1)
-        val birthday = Parse.stringToDate(cursor.getString(2))
-        val email = cursor.getString(3)
-        val pathProfilePhoto = cursor.getString(4)
-        val profileDescription = cursor.getString(5)
+        val username = cursor.getString(1)
+        val name = cursor.getString(2)
+        val birthday = Parse.stringToDate(cursor.getString(3))
+        val email = cursor.getString(4)
+        val pathProfilePhoto = cursor.getString(6)
+        val lastLoginDate = Parse.stringToDateTime(cursor.getString(7))
+        val profileDescription = cursor.getString(8)
+        val photographyEquipment = cursor.getString(9)
+        val photographyAwards = cursor.getString(10)
 
         var profilePhoto: Bitmap? = null
         if (pathProfilePhoto != null) {
@@ -169,7 +201,12 @@ class DatabasePhotographer(private var context: Context) {
             profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
         }
 
-        return Photographer(id, username, name, birthday, email, profilePhoto, profileDescription)
+        val photographer = Photographer(id, username, name, birthday, email, profilePhoto, lastLoginDate)
+        photographer.profileDescription = profileDescription
+        photographer.photographyEquipment = photographyEquipment
+        photographer.photographyAwards = photographyAwards
+
+        return photographer
     }
 
     fun addSubscription(photographerId: Int, subscriberId: Int): Long {
@@ -243,11 +280,11 @@ class DatabasePhotographer(private var context: Context) {
         return list
     }
 
-    fun getFollowing(photographerId: Int): ArrayList<Photographer> {
+    fun getFollowing(subscriberId: Int): ArrayList<Photographer> {
         val list = arrayListOf<Photographer>()
 
         val query =
-            "SELECT PhotographerId FROM Subscriptions WHERE SubscriberId = '$photographerId'"
+            "SELECT PhotographerId FROM Subscriptions WHERE SubscriberId = '$subscriberId'"
         val cursor: Cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()) {
@@ -281,6 +318,14 @@ class DatabasePhotographer(private var context: Context) {
             profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
         }
 
-        return Photographer(id, username, name, LocalDate.now(), "", profilePhoto, null)
+        return Photographer(
+            id,
+            username,
+            name,
+            LocalDate.now(),
+            "",
+            profilePhoto,
+            LocalDateTime.now()
+        )
     }
 }

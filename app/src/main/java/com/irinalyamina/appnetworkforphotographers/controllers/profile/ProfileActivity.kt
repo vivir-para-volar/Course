@@ -78,7 +78,7 @@ class ProfileActivity : AppCompatActivity() {
                 binding.profilePhoto.setImageBitmap(photographer.profilePhoto)
             }
 
-            if (photographer.profileDescription != null) {
+            if (photographer.profileDescription != null && photographer.profileDescription!!.isNotEmpty()) {
                 binding.textDescription.text = photographer.profileDescription
             }
 
@@ -95,6 +95,16 @@ class ProfileActivity : AppCompatActivity() {
                 photographerService.getCountFollowers(photographer.id).toString()
             binding.textFollowing.text =
                 photographerService.getCountFollowing(photographer.id).toString()
+
+            binding.textEmail.text = photographer.email
+
+            if (photographer.photographyEquipment != null && photographer.photographyEquipment!!.isNotEmpty()) {
+                binding.textPhotographyEquipment.text = photographer.photographyEquipment
+            }
+
+            if (photographer.photographyAwards != null  && photographer.photographyAwards!!.isNotEmpty()) {
+                binding.textPhotographyAwards.text = photographer.photographyAwards
+            }
 
             val postService = PostService(this)
             val listPosts = postService.getPhotographerPosts(photographer.id)
@@ -157,17 +167,17 @@ class ProfileActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (binding.tabLayout.selectedTabPosition) {
                     0 -> {
-                        binding.constraintLayoutAbout.visibility = View.VISIBLE
+                        binding.layoutAbout.visibility = View.VISIBLE
                         binding.recyclerViewPosts.visibility = View.GONE
                         binding.recyclerViewBlogs.visibility = View.GONE
                     }
                     1 -> {
-                        binding.constraintLayoutAbout.visibility = View.GONE
+                        binding.layoutAbout.visibility = View.GONE
                         binding.recyclerViewPosts.visibility = View.VISIBLE
                         binding.recyclerViewBlogs.visibility = View.GONE
                     }
                     2 -> {
-                        binding.constraintLayoutAbout.visibility = View.GONE
+                        binding.layoutAbout.visibility = View.GONE
                         binding.recyclerViewPosts.visibility = View.GONE
                         binding.recyclerViewBlogs.visibility = View.VISIBLE
                     }

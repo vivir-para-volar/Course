@@ -2,6 +2,7 @@ package com.irinalyamina.appnetworkforphotographers.models
 
 import android.graphics.Bitmap
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class Photographer {
     var id: Int
@@ -11,7 +12,11 @@ class Photographer {
     var email: String
     var password: String?
     var profilePhoto: Bitmap?
-    var profileDescription: String?
+    var lastLoginDate: LocalDateTime
+
+    var profileDescription: String? = null
+    var photographyEquipment: String? = null
+    var photographyAwards: String? = null
 
     constructor(
         username: String,
@@ -25,10 +30,10 @@ class Photographer {
         this.birthday = birthday
         this.email = email
         this.password = password
+        this.lastLoginDate = LocalDateTime.now()
 
         this.id = -1
         this.profilePhoto = null
-        this.profileDescription = null
     }
 
     constructor(
@@ -38,7 +43,7 @@ class Photographer {
         birthday: LocalDate,
         email: String,
         pathProfilePhoto: Bitmap?,
-        profileDescription: String?
+        lastLoginDate: LocalDateTime
     ) {
         this.id = id
         this.username = username
@@ -46,8 +51,8 @@ class Photographer {
         this.birthday = birthday
         this.email = email
         this.profilePhoto = pathProfilePhoto
+        this.lastLoginDate = lastLoginDate
 
         this.password = null
-        this.profileDescription = profileDescription
     }
 }

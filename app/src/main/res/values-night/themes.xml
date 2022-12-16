@@ -25,10 +25,7 @@
     </style>
 
     <!-- Style for Button -->
-    <style name="image_btn_date">
-        <item name="android:backgroundTint">#00000000</item>
-        <item name="android:src">@drawable/ic_date_white</item>
-    </style>
+
 
     <!-- Theme for Profile -->
     <style name="image_btn_message_profile">

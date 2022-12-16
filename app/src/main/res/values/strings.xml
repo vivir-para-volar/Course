@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">AppNetworkForPhotographers</string>
+    <string name="app_name">Moment</string>
+
+    <string name="no_string_data">-</string>
+    <string name="no_int_data">0</string>
 
     <!-- Authorization/Registration -->
     <string name="name_net">Moment</string>
@@ -20,10 +23,18 @@
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm password</string>
 
+    <string name="hint_profile_description">Profile description</string>
+    <string name="hint_photography_equipment">Photography equipment</string>
+    <string name="hint_photography_awards">Photography awards</string>
+
     <string name="empty_name">Enter surname and name</string>
     <string name="empty_username">Enter username</string>
     <string name="empty_email">Enter email</string>
     <string name="empty_password">Enter password</string>
+
+    <string name="empty_profile_description">Enter profile description</string>
+    <string name="empty_photography_equipment">Enter photography equipment</string>
+    <string name="empty_photography_awards">Enter photography awards</string>
 
     <!-- Bottom Menu -->
     <string name="menu_home">Home</string>
@@ -38,6 +49,8 @@
     <string name="tab_about">About</string>
     <string name="tab_posts">Posts</string>
     <string name="tab_blogs">Blogs</string>
+    <string name="tab_user_info">User info</string>
+    <string name="tab_profile_info">Profile info</string>
 
     <!-- Profile -->
     <string name="btn_subscribe">Subscribe</string>
@@ -45,6 +58,9 @@
     <string name="title_description">Description</string>
     <string name="title_followers">Followers</string>
     <string name="title_following">Following</string>
+    <string name="title_email">You can contact me by email</string>
+    <string name="title_photography_equipment">Photography equipment</string>
+    <string name="title_photography_awards">Photography awards</string>
     <!-- Profile Menu -->
     <string name="menu_edit_profile">Edit profile</string>
     <string name="menu_settings">Settings</string>
@@ -57,7 +73,8 @@
     <!-- Edit Profile -->
     <string name="title_edit_profile">Edit profile</string>
     <string name="btn_change_photo">Change photo</string>
-    <string name="btn_change_profile">Change profile</string>
+    <string name="btn_change_user_info">Change user info</string>
+    <string name="btn_change_profile_info">Change profile info</string>
     <string name="success_change_profile">Profile changed successfully</string>
     <string name="success_change_profile_photo">Profile photo changed successfully</string>
 
@@ -87,7 +104,8 @@
 
     <string name="error_get_by_id">Incorrect id</string>
 
-    <string name="error_authorization">Incorrect username or password entered</string>
+    <string name="error_incorrect_username_password">Incorrect username or password entered</string>
+    <string name="error_authorization">Authorization error. Try again</string>
     <string name="error_registration">Registration error. Try again</string>
     <string name="error_unique_username">This username is already in use</string>
     <string name="error_unique_email">This email is already in use</string>

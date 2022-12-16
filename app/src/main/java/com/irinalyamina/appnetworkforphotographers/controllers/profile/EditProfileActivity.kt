@@ -5,8 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayout
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
@@ -18,6 +20,8 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditProfileBinding
 
+    private lateinit var changedUser: Photographer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,12 +32,26 @@ class EditProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
+        onTabLayout()
+
         Parse.onDatePicker(this, binding.editTextBirthday, binding.btnChangeBirthday)
+
+
+        changedUser = Photographer(
+            PhotographerService.getCurrentUser().id,
+            PhotographerService.getCurrentUser().username,
+            PhotographerService.getCurrentUser().name,
+            PhotographerService.getCurrentUser().birthday,
+            PhotographerService.getCurrentUser().email,
+            PhotographerService.getCurrentUser().profilePhoto,
+            PhotographerService.getCurrentUser().lastLoginDate
+        )
 
         initialDate()
 
         binding.btnChangePhoto.setOnClickListener { btnChangePhotoOnClickListener() }
-        binding.btnChangeProfile.setOnClickListener { btnChangeProfileOnClickListener() }
+        binding.btnChangeUserInfo.setOnClickListener { btnChangeProfileOnClickListener() }
+        binding.btnChangeProfileInfo.setOnClickListener { btnChangeProfileInfoOnClickListener() }
     }
 
     private fun initialDate() {
@@ -68,19 +86,13 @@ class EditProfileActivity : AppCompatActivity() {
             return
         }
 
-        val changedUser =
-            Photographer(
-                PhotographerService.getCurrentUser().id,
-                username,
-                name,
-                birthday,
-                email,
-                null,
-                null
-            )
+        changedUser.username = username
+        changedUser.name = name
+        changedUser.birthday = birthday
+        changedUser.email = email
 
         val service = PhotographerService(this)
-        val answer = service.editProfile(changedUser)
+        val answer = service.editUserInfo(changedUser)
 
         if (answer) {
             ShowMessage.toast(this, getString(R.string.success_change_profile))
@@ -95,6 +107,25 @@ class EditProfileActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE)
 
+    }
+
+    private fun btnChangeProfileInfoOnClickListener() {
+        val profileDescription = binding.editTextProfileDescription.text.toString().trim()
+        val photographyEquipment = binding.editTextPhotographyEquipment.text.toString().trim()
+        val photographyAwards = binding.editTextPhotographyAwards.text.toString().trim()
+
+        changedUser.profileDescription = profileDescription
+        changedUser.photographyEquipment = photographyEquipment
+        changedUser.photographyAwards = photographyAwards
+
+        val service = PhotographerService(this)
+        val answer = service.editProfileInfo(changedUser)
+
+        if (answer) {
+            ShowMessage.toast(this, getString(R.string.success_change_profile))
+            val intent = Intent(this, UserProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -112,6 +143,26 @@ class EditProfileActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun onTabLayout() {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when (binding.tabLayout.selectedTabPosition) {
+                    0 -> {
+                        binding.layoutEditUserInfo.visibility = View.VISIBLE
+                        binding.layoutEditProfileInfo.visibility = View.GONE
+                    }
+                    1 -> {
+                        binding.layoutEditUserInfo.visibility = View.GONE
+                        binding.layoutEditProfileInfo.visibility = View.VISIBLE
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

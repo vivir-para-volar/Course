@@ -49,10 +49,10 @@ class PhotographerService(private var context: Context) {
         }
     }
 
-    fun editProfile(changedUser: Photographer): Boolean {
+    fun editUserInfo(changedUser: Photographer): Boolean {
         return try {
             database.checkForUniqueness(changedUser)
-            database.updateUser(changedUser)
+            database.updateUserInfo(changedUser)
             true
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
@@ -64,6 +64,17 @@ class PhotographerService(private var context: Context) {
         return try {
             val imageParse = ImageParse(context)
             database.updateUserProfilePhoto(imageParse.uriToBitmap(image))
+            true
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            false
+        }
+    }
+
+    fun editProfileInfo(changedUser: Photographer): Boolean {
+        return try {
+            database.checkForUniqueness(changedUser)
+            database.updateProfileInfo(changedUser)
             true
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
