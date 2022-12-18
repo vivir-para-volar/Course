@@ -5,6 +5,7 @@ import android.net.Uri
 import com.irinalyamina.appnetworkforphotographers.ShowMessage
 import com.irinalyamina.appnetworkforphotographers.database.DatabasePhotographer
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
+import com.irinalyamina.appnetworkforphotographers.models.Post
 
 class PhotographerService(private var context: Context) {
 
@@ -88,6 +89,15 @@ class PhotographerService(private var context: Context) {
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
             null
+        }
+    }
+
+    fun searchPhotographers(searchString: String): ArrayList<Photographer> {
+        return try {
+            database.searchPhotographers(searchString)
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            arrayListOf()
         }
     }
 

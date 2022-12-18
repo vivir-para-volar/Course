@@ -73,7 +73,7 @@ class PhotographersAdapter(private val context: Context, private val fromActivit
     }
 
     fun setListPhotographers(listPhotographers: ArrayList<Photographer>) {
-        this.listPhotographers.addAll(listPhotographers)
+        this.listPhotographers = ArrayList(listPhotographers)
         notifyDataSetChanged()
     }
 }

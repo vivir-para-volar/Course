@@ -117,6 +117,12 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="image_btn">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+    </style>
+
     <style name="btn_authorization_registration" parent="button">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">21sp</item>
@@ -125,18 +131,16 @@
         <item name="android:paddingHorizontal">40dp</item>
     </style>
 
-    <style name="image_btn_date">
-        <item name="android:layout_width">48dp</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:backgroundTint">@android:color/transparent</item>
+    <style name="image_btn_date" parent="image_btn">
         <item name="android:src">@drawable/ic_date_black</item>
     </style>
 
-    <style name="image_btn_forward">
-        <item name="android:backgroundTint">@android:color/transparent</item>
+    <style name="image_btn_forward" parent="image_btn">
         <item name="android:src">@drawable/ic_arrow_forward_black</item>
-        <item name="android:layout_width">48dp</item>
-        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="image_btn_search" parent="image_btn">
+        <item name="android:src">@drawable/ic_search_black</item>
     </style>
 
     <style name="btn_subscribe" parent="button">

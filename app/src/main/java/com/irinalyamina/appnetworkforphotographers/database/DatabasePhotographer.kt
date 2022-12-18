@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import com.irinalyamina.appnetworkforphotographers.Parse
 import com.irinalyamina.appnetworkforphotographers.R
 import com.irinalyamina.appnetworkforphotographers.models.Photographer
+import com.irinalyamina.appnetworkforphotographers.models.Post
 import java.io.IOException
 import java.lang.Exception
 import java.sql.SQLException
@@ -40,6 +41,38 @@ class DatabasePhotographer(private var context: Context) {
         }
     }
 
+    private fun getListPhotographers(cursor: Cursor): ArrayList<Photographer> {
+        val list: ArrayList<Photographer> = arrayListOf()
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(0)
+            val username = cursor.getString(1)
+            val name = cursor.getString(2)
+            val birthday = Parse.unixTimeToDate(cursor.getLong(3))
+            val email = cursor.getString(4)
+            val pathProfilePhoto = cursor.getString(6)
+            val lastLoginDate = Parse.unixTimeToDateTime(cursor.getLong(7))
+            val profileDescription = cursor.getString(8)
+            val photographyEquipment = cursor.getString(9)
+            val photographyAwards = cursor.getString(10)
+
+            var profilePhoto: Bitmap? = null
+            if (pathProfilePhoto != null) {
+                val imageProcessing = ImageProcessing(context)
+                profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
+            }
+
+            val photographer =
+                Photographer(id, username, name, birthday, email, profilePhoto, lastLoginDate)
+            photographer.profileDescription = profileDescription
+            photographer.photographyEquipment = photographyEquipment
+            photographer.photographyAwards = photographyAwards
+
+            list.add(photographer)
+        }
+        return list
+    }
+
     fun authorization(username: String, password: String) {
         val query =
             "SELECT * FROM Photographers WHERE Username = '$username' AND Password = '$password'"
@@ -50,37 +83,27 @@ class DatabasePhotographer(private var context: Context) {
             throw Exception(context.getString(R.string.error_incorrect_username_password))
         }
 
-        cursor.moveToFirst()
-
-        val id = cursor.getInt(0)
-        val name = cursor.getString(2)
-        val birthday = Parse.unixTimeToDate(cursor.getLong(3))
-        val email = cursor.getString(4)
-        val pathProfilePhoto = cursor.getString(6)
-        val lastLoginDate = Parse.unixTimeToDateTime(cursor.getLong(7))
-        val profileDescription = cursor.getString(8)
-        val photographyEquipment = cursor.getString(9)
-        val photographyAwards = cursor.getString(10)
-
-        var profilePhoto: Bitmap? = null
-        if (pathProfilePhoto != null) {
-            val imageProcessing = ImageProcessing(context)
-            profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
-        }
-
+        val photographer = getListPhotographers(cursor)[0]
 
         val cv = ContentValues()
         cv.put("LastLoginDate", Parse.dateTimeToUnixTime(LocalDateTime.now()))
-
-        val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(id.toString()))
+        val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(photographer.id.toString()))
         if (count == 0) {
             throw Exception(context.getString(R.string.error_authorization))
         }
 
-        user = Photographer(id, username, name, birthday, email, profilePhoto, lastLoginDate)
-        user!!.profileDescription = profileDescription
-        user!!.photographyEquipment = photographyEquipment
-        user!!.photographyAwards = photographyAwards
+        user = Photographer(
+            photographer.id,
+            photographer.username,
+            photographer.name,
+            photographer.birthday,
+            photographer.email,
+            photographer.profilePhoto,
+            photographer.lastLoginDate
+        )
+        user!!.profileDescription = photographer.profileDescription
+        user!!.photographyEquipment = photographer.photographyEquipment
+        user!!.photographyAwards = photographer.photographyAwards
     }
 
     fun registration(newUser: Photographer): Long {
@@ -182,31 +205,16 @@ class DatabasePhotographer(private var context: Context) {
             throw Exception(context.getString(R.string.error_get_by_id))
         }
 
-        cursor.moveToFirst()
-
-        val username = cursor.getString(1)
-        val name = cursor.getString(2)
-        val birthday = Parse.unixTimeToDate(cursor.getLong(3))
-        val email = cursor.getString(4)
-        val pathProfilePhoto = cursor.getString(6)
-        val lastLoginDate = Parse.unixTimeToDateTime(cursor.getLong(7))
-        val profileDescription = cursor.getString(8)
-        val photographyEquipment = cursor.getString(9)
-        val photographyAwards = cursor.getString(10)
-
-        var profilePhoto: Bitmap? = null
-        if (pathProfilePhoto != null) {
-            val imageProcessing = ImageProcessing(context)
-            profilePhoto = imageProcessing.getPhoto(pathProfilePhoto)
-        }
-
-        val photographer =
-            Photographer(id, username, name, birthday, email, profilePhoto, lastLoginDate)
-        photographer.profileDescription = profileDescription
-        photographer.photographyEquipment = photographyEquipment
-        photographer.photographyAwards = photographyAwards
-
+        val photographer = getListPhotographers(cursor)[0]
         return photographer
+    }
+
+    fun searchPhotographers(searchString: String): ArrayList<Photographer> {
+        val query =
+            "SELECT * FROM Photographers WHERE Username LIKE '%$searchString%' OR Name LIKE '%$searchString%'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        return getListPhotographers(cursor)
     }
 
     fun addSubscription(photographerId: Int, subscriberId: Int): Long {

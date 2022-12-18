@@ -96,6 +96,15 @@ class PostService(private var context: Context) {
         }
     }
 
+    fun searchPosts(searchString: String): ArrayList<Post> {
+        return try {
+            database.searchPosts(searchString)
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            arrayListOf()
+        }
+    }
+
     fun getPostComments(postId: Int): ArrayList<PostComment> {
         return try {
             database.getPostComments(postId)

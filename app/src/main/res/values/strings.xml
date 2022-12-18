@@ -46,6 +46,37 @@
     <string name="menu_add_blog">Add blog</string>
 
 
+    <!-- Category, Filter -->
+    <string name="text_category_directory">Choose category directory</string>
+    <string name="text_category">Choose category</string>
+
+    <string name="text_filter">Filter</string>
+
+    <string name="text_what_to_show">What to show</string>
+    <string name="tab_filter_new">New</string>
+    <string name="tab_filter_top">Top</string>
+
+    <string name="text_period">Period</string>
+    <string name="text_period_day">Day</string>
+    <string name="text_period_week">Week</string>
+    <string name="text_period_month">Month</string>
+    <string name="text_period_year">Year</string>
+    <string name="text_period_all_time">All time</string>
+
+    <string name="btn_apply_filter">Apply filter</string>
+
+
+    <!-- Home -->
+    <string name="tab_news">News</string>
+    <string name="tab_other">Other</string>
+
+
+    <!-- Search -->
+    <string name="enter_search">Search…</string>
+    <string name="tab_people">People</string>
+    <string name="text_search_empty">Nothing found</string>
+
+
     <!-- Profile -->
     <string name="btn_subscribe">Subscribe</string>
     <string name="btn_unsubscribe">Unsubscribe</string>
@@ -85,26 +116,6 @@
     <string name="success_change_profile_photo">Profile photo changed successfully</string>
 
 
-    <!-- Category, Filter -->
-    <string name="text_category_directory">Choose category directory</string>
-    <string name="text_category">Choose category</string>
-
-    <string name="text_filter">Filter</string>
-
-    <string name="text_what_to_show">What to show</string>
-    <string name="tab_filter_new">New</string>
-    <string name="tab_filter_top">Top</string>
-
-    <string name="text_period">Period</string>
-    <string name="text_period_day">Day</string>
-    <string name="text_period_week">Week</string>
-    <string name="text_period_month">Month</string>
-    <string name="text_period_year">Year</string>
-    <string name="text_period_all_time">All time</string>
-
-    <string name="btn_apply_filter">Apply filter</string>
-
-
     <!-- Add Post -->
     <string name="title_add_post">Add post</string>
     <string name="btn_load_photo">Load photo</string>
@@ -124,11 +135,6 @@
 
     <!-- Add Blog -->
     <string name="title_add_blog">Add blog</string>
-
-
-    <!-- Home -->
-    <string name="tab_news">News</string>
-    <string name="tab_other">Other</string>
 
 
     <!-- Database -->

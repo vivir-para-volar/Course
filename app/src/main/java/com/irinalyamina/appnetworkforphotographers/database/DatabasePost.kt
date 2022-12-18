@@ -34,6 +34,43 @@ class DatabasePost(private var context: Context) {
         }
     }
 
+    private fun getListPosts(
+        cursor: Cursor,
+        indexStart: Int = 0,
+        photographer: Photographer? = null
+    ): ArrayList<Post> {
+        val list: ArrayList<Post> = arrayListOf()
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(indexStart)
+            val pathPhoto = cursor.getString(indexStart + 1)
+            val caption = cursor.getString(indexStart + 2)
+            val uploadDate = Parse.unixTimeToDateTime(cursor.getLong(indexStart + 3))
+            val photographerId = cursor.getInt(indexStart + 4)
+            val categoryId = cursor.getInt(indexStart + 5)
+
+            val imageProcessing = ImageProcessing(context)
+            val photo = imageProcessing.getPhoto(pathPhoto)
+
+            val photographerTemp = photographer ?: getPhotographerById(photographerId)
+
+            val post = Post(
+                id,
+                photo,
+                caption,
+                uploadDate,
+                photographerId,
+                categoryId,
+                getAllLikes(id),
+                getCountPostComments(id),
+                photographerTemp.username,
+                photographerTemp.profilePhoto
+            )
+            list.add(post)
+        }
+        return list
+    }
+
     fun add(newPost: Post, postPhoto: Bitmap): Long {
         val cv = ContentValues()
         cv.put("PathPhoto", "pathPhoto")
@@ -170,41 +207,12 @@ class DatabasePost(private var context: Context) {
         return getListPosts(cursor)
     }
 
-    private fun getListPosts(
-        cursor: Cursor,
-        indexStart: Int = 0,
-        photographer: Photographer? = null
-    ): ArrayList<Post> {
-        val list: ArrayList<Post> = arrayListOf()
+    fun searchPosts(searchString: String): ArrayList<Post> {
+        val query =
+            "SELECT * FROM Posts WHERE Caption LIKE '%$searchString%' ORDER BY UploadDate DESC"
+        val cursor: Cursor = db.rawQuery(query, null)
 
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(indexStart)
-            val pathPhoto = cursor.getString(indexStart + 1)
-            val caption = cursor.getString(indexStart + 2)
-            val uploadDate = Parse.unixTimeToDateTime(cursor.getLong(indexStart + 3))
-            val photographerId = cursor.getInt(indexStart + 4)
-            val categoryId = cursor.getInt(indexStart + 5)
-
-            val imageProcessing = ImageProcessing(context)
-            val photo = imageProcessing.getPhoto(pathPhoto)
-
-            val photographerTemp = photographer ?: getPhotographerById(photographerId)
-
-            val post = Post(
-                id,
-                photo,
-                caption,
-                uploadDate,
-                photographerId,
-                categoryId,
-                getAllLikes(id),
-                getCountPostComments(id),
-                photographerTemp.username,
-                photographerTemp.profilePhoto
-            )
-            list.add(post)
-        }
-        return list
+        return getListPosts(cursor)
     }
 
     private fun getPhotographerById(id: Int): Photographer {
