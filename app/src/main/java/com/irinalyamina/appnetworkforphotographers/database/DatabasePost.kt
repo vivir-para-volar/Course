@@ -117,7 +117,6 @@ class DatabasePost(private var context: Context) {
         return id
     }
 
-
     fun getPhotographerPosts(photographerId: Int): ArrayList<Post> {
         val photographer = getPhotographerById(photographerId)
 
@@ -125,55 +124,66 @@ class DatabasePost(private var context: Context) {
             "SELECT * FROM Posts WHERE PhotographerId = '$photographerId' ORDER BY UploadDate DESC"
         val cursor: Cursor = db.rawQuery(query, null)
 
-        return getListPosts(cursor, photographer)
+        return getListPosts(cursor, photographer = photographer)
     }
 
-    fun getPosts(): ArrayList<Post> {
-        val query = "SELECT * FROM Posts ORDER BY UploadDate DESC"
+    fun getPostsNews(photographer: Photographer): ArrayList<Post> {
+        val photographerId = photographer.id
+        val lastLoginDate = Parse.dateTimeToUnixTime(photographer.lastLoginDate)
+
+        val query = "SELECT * FROM Subscriptions S " +
+                "JOIN Posts P ON S.PhotographerId = P.PhotographerId " +
+                "WHERE S.SubscriberId = $photographerId AND P.UploadDate >= $lastLoginDate " +
+                "ORDER BY UploadDate DESC"
+
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        return getListPosts(cursor, 2)
+    }
+
+    fun getPostsOther(photographer: Photographer): ArrayList<Post> {
+        val photographerId = photographer.id
+        val lastLoginDate = Parse.dateTimeToUnixTime(photographer.lastLoginDate)
+
+        val listExcludeId = arrayListOf<Int>()
+
+        val queryExcludeId = "SELECT P.Id FROM Subscriptions S " +
+                "JOIN Posts P ON S.PhotographerId = P.PhotographerId " +
+                "WHERE S.SubscriberId = $photographerId AND P.UploadDate >= $lastLoginDate " +
+                "ORDER BY UploadDate DESC"
+
+        val cursorExcludeId: Cursor = db.rawQuery(queryExcludeId, null)
+        while (cursorExcludeId.moveToNext()) {
+            val id = cursorExcludeId.getInt(0)
+            listExcludeId.add(id)
+        }
+
+
+        var query = "SELECT * FROM Posts WHERE PhotographerId <> $photographerId "
+        for (item in listExcludeId) {
+            query += "AND id <> $item "
+        }
+        query += "ORDER BY UploadDate DESC"
+
         val cursor: Cursor = db.rawQuery(query, null)
 
         return getListPosts(cursor)
     }
 
-    fun getPostComments(postId: Int): ArrayList<PostComment> {
-        val list = arrayListOf<PostComment>()
-
-        val query = "SELECT * FROM PostComments WHERE PostId = '$postId'"
-        val cursor: Cursor = db.rawQuery(query, null)
-
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(0)
-            val date = Parse.unixTimeToDateTime(cursor.getLong(1))
-            val text = cursor.getString(2)
-            val postId = cursor.getInt(3)
-            val photographerId = cursor.getInt(4)
-
-            val photographer = getPhotographerById(photographerId)
-
-            val postComment = PostComment(
-                id,
-                date,
-                text,
-                postId,
-                photographerId,
-                photographer.username,
-                photographer.profilePhoto
-            )
-            list.add(postComment)
-        }
-        return list
-    }
-
-    private fun getListPosts(cursor: Cursor, photographer: Photographer? = null): ArrayList<Post> {
+    private fun getListPosts(
+        cursor: Cursor,
+        indexStart: Int = 0,
+        photographer: Photographer? = null
+    ): ArrayList<Post> {
         val list: ArrayList<Post> = arrayListOf()
 
         while (cursor.moveToNext()) {
-            val id = cursor.getInt(0)
-            val pathPhoto = cursor.getString(1)
-            val caption = cursor.getString(2)
-            val uploadDate = Parse.unixTimeToDateTime(cursor.getLong(3))
-            val photographerId = cursor.getInt(4)
-            val categoryId = cursor.getInt(5)
+            val id = cursor.getInt(indexStart)
+            val pathPhoto = cursor.getString(indexStart + 1)
+            val caption = cursor.getString(indexStart + 2)
+            val uploadDate = Parse.unixTimeToDateTime(cursor.getLong(indexStart + 3))
+            val photographerId = cursor.getInt(indexStart + 4)
+            val categoryId = cursor.getInt(indexStart + 5)
 
             val imageProcessing = ImageProcessing(context)
             val photo = imageProcessing.getPhoto(pathPhoto)
@@ -248,5 +258,34 @@ class DatabasePost(private var context: Context) {
         cursor.moveToNext()
         val count = cursor.getInt(0)
         return count
+    }
+
+    fun getPostComments(postId: Int): ArrayList<PostComment> {
+        val list = arrayListOf<PostComment>()
+
+        val query = "SELECT * FROM PostComments WHERE PostId = '$postId'"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(0)
+            val date = Parse.unixTimeToDateTime(cursor.getLong(1))
+            val text = cursor.getString(2)
+            val postId = cursor.getInt(3)
+            val photographerId = cursor.getInt(4)
+
+            val photographer = getPhotographerById(photographerId)
+
+            val postComment = PostComment(
+                id,
+                date,
+                text,
+                postId,
+                photographerId,
+                photographer.username,
+                photographer.profilePhoto
+            )
+            list.add(postComment)
+        }
+        return list
     }
 }

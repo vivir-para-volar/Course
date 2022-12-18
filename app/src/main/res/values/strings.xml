@@ -102,6 +102,8 @@
     <string name="text_period_year">Year</string>
     <string name="text_period_all_time">All time</string>
 
+    <string name="btn_apply_filter">Apply filter</string>
+
 
     <!-- Add Post -->
     <string name="title_add_post">Add post</string>

@@ -7,6 +7,7 @@
     tools:context=".controllers.home.HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -100,44 +101,111 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="20dp"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/title_filter"
                 style="@style/text_view"
+                android:layout_width="wrap_content"
                 android:text="@string/text_filter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_close_filter"
+                style="@style/image_btn_close_filter"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/title_what_to_show"
                 style="@style/text_view"
-                android:text="@string/text_filter"
+                android:layout_marginTop="20dp"
+                android:text="@string/text_what_to_show"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/title_filter" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout_what_to_show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/title_what_to_show">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_news" />
+                    android:text="@string/tab_filter_new" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_other" />
+                    android:text="@string/tab_filter_top" />
 
             </com.google.android.material.tabs.TabLayout>
+
+            <TextView
+                android:id="@+id/title_period"
+                style="@style/text_view"
+                android:layout_marginTop="20dp"
+                android:text="@string/text_period"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout_what_to_show" />
+
+            <Spinner
+                android:id="@+id/spinner_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/title_period" />
+
+            <TextView
+                android:id="@+id/text_category_directory"
+                style="@style/text_view"
+                android:layout_marginTop="20dp"
+                android:text="@string/text_category_directory"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_period" />
+
+            <Spinner
+                android:id="@+id/spinner_category_directory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_category_directory" />
+
+            <TextView
+                android:id="@+id/text_category"
+                style="@style/text_view"
+                android:layout_marginTop="20dp"
+                android:text="@string/text_category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_category_directory" />
+
+            <Spinner
+                android:id="@+id/spinner_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_category" />
+
+            <Button
+                android:id="@+id/btn_apply_filter"
+                style="@style/button"
+                android:layout_marginTop="20dp"
+                android:text="@string/btn_apply_filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner_category" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

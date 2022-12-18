@@ -74,7 +74,7 @@ class PostCommentsAdapter(private val context: Context, private val fromActivity
     }
 
     fun setListPostComments(listPostComments: ArrayList<PostComment>) {
-        this.listPostComments.addAll(listPostComments)
+        this.listPostComments = ArrayList(listPostComments)
         notifyDataSetChanged()
     }
 

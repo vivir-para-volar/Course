@@ -78,9 +78,18 @@ class PostService(private var context: Context) {
         }
     }
 
-    fun getPosts(): ArrayList<Post> {
+    fun getPostsNews(): ArrayList<Post> {
         return try {
-            database.getPosts()
+            database.getPostsNews(PhotographerService.getCurrentUser())
+        } catch (exp: Exception) {
+            ShowMessage.toast(context, exp.message)
+            arrayListOf()
+        }
+    }
+
+    fun getPostsOther(): ArrayList<Post> {
+        return try {
+            database.getPostsOther(PhotographerService.getCurrentUser())
         } catch (exp: Exception) {
             ShowMessage.toast(context, exp.message)
             arrayListOf()

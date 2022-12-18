@@ -57,6 +57,7 @@ class DatabasePhotographer(private var context: Context) {
         val birthday = Parse.unixTimeToDate(cursor.getLong(3))
         val email = cursor.getString(4)
         val pathProfilePhoto = cursor.getString(6)
+        val lastLoginDate = Parse.unixTimeToDateTime(cursor.getLong(7))
         val profileDescription = cursor.getString(8)
         val photographyEquipment = cursor.getString(9)
         val photographyAwards = cursor.getString(10)
@@ -68,17 +69,15 @@ class DatabasePhotographer(private var context: Context) {
         }
 
 
-        val dateTimeNow = LocalDateTime.now()
-
         val cv = ContentValues()
-        cv.put("LastLoginDate", Parse.dateTimeToUnixTime(dateTimeNow))
+        cv.put("LastLoginDate", Parse.dateTimeToUnixTime(LocalDateTime.now()))
 
         val count: Int = db.update("Photographers", cv, "Id=?", arrayOf(id.toString()))
         if (count == 0) {
             throw Exception(context.getString(R.string.error_authorization))
         }
 
-        user = Photographer(id, username, name, birthday, email, profilePhoto, dateTimeNow)
+        user = Photographer(id, username, name, birthday, email, profilePhoto, lastLoginDate)
         user!!.profileDescription = profileDescription
         user!!.photographyEquipment = photographyEquipment
         user!!.photographyAwards = photographyAwards

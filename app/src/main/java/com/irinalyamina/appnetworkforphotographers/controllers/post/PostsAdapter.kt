@@ -41,7 +41,10 @@ class PostsAdapter(private val context: Context, private val fromActivity: Strin
 
             if (post.listLikes.contains(PhotographerService.getCurrentUser().id)) {
                 binding.imgLikes.setImageResource(R.drawable.ic_like_click_black)
+            } else {
+                binding.imgLikes.setImageResource(R.drawable.ic_like_black)
             }
+
             binding.textLikes.text = post.listLikes.size.toString()
 
             binding.textComments.text = post.countComments.toString()
@@ -152,7 +155,7 @@ class PostsAdapter(private val context: Context, private val fromActivity: Strin
     }
 
     fun setListPosts(listPosts: ArrayList<Post>) {
-        this.listPosts.addAll(listPosts)
+        this.listPosts = ArrayList(listPosts)
         notifyDataSetChanged()
     }
 }
