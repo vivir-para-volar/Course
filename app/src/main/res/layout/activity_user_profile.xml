@@ -17,6 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageButton
+                android:id="@+id/btn_add_post"
+                style="@style/toolbar_icon_add_post"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -77,9 +83,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/layout_light"
                 android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -103,10 +109,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_followers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                style="@style/layout_light"
+                android:layout_marginTop="3dp"
                 android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraint_layout_description">
 
                 <TextView
@@ -135,10 +141,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_following"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                style="@style/layout_light"
+                android:layout_marginTop="3dp"
                 android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_followers">
 
                 <TextView
@@ -168,9 +174,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/layout_light"
+                android:layout_marginTop="3dp"
                 android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_following">
 
                 <TextView
@@ -194,9 +201,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_photography_equipment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/layout_light"
+                android:layout_marginTop="3dp"
                 android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_email">
 
                 <TextView
@@ -220,9 +228,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_photography_awards"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/layout_light"
+                android:layout_marginTop="3dp"
                 android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_photography_equipment">
 
                 <TextView

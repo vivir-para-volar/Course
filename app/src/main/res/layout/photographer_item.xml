@@ -4,29 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
-    android:padding="10dp">
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="5dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/photographer_profile_photo"
-        style="@style/user_photo_small"
-        app:civ_border_width="2dp"
+    <androidx.cardview.widget.CardView
+        style="@style/card_view"
+        app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/photographer_username"
-        style="@style/toolbar_multiline_line1"
-        android:text="willsmith"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/photographer_profile_photo"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="5dp">
 
-    <TextView
-        android:id="@+id/photographer_name"
-        style="@style/toolbar_multiline_line2"
-        android:text="Will Smith"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/photographer_profile_photo"
-        app:layout_constraintTop_toTopOf="parent" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/photographer_profile_photo"
+                style="@style/user_photo_small"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/photographer_username"
+                style="@style/toolbar_multiline_line1"
+                android:text="willsmith"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/photographer_profile_photo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/photographer_name"
+                style="@style/toolbar_multiline_line2"
+                android:text="Will Smith"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/photographer_profile_photo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,38 +1,244 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Base application theme. -->
     <style name="Theme.AppNetworkForPhotographers" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorSurface">@color/chinese_black</item>
+
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/dark_gray</item>
+        <item name="colorOnPrimary">@color/white</item>
+
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="colorSecondary">@color/light_gray</item>
+        <item name="colorSecondaryVariant">@color/gray</item>
+        <item name="colorOnSecondary">@color/white</item>
 
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/white</item>
     </style>
 
+
     <!-- Theme for Toolbar -->
+    <style name="toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="toolbar_icon">
+        <item name="android:layout_width">?attr/actionBarSize</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="toolbar_icon_filter" parent="toolbar_icon">
+        <item name="android:src">@drawable/ic_filter_white</item>
+    </style>
+
+    <style name="toolbar_icon_add_post" parent="toolbar_icon">
+        <item name="android:src">@drawable/ic_add_post_white</item>
+    </style>
+
     <style name="toolbar_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">21sp</item>
     </style>
 
-    <!-- Style for Button -->
-
-
-    <!-- Theme for Profile -->
-    <style name="image_btn_message_profile">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:backgroundTint">?attr/colorPrimary</item>
-        <item name="android:src">@drawable/ic_messenger_black</item>
+    <style name="toolbar_multiline_line1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingVertical">1dp</item>
     </style>
 
+    <style name="toolbar_multiline_line2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingVertical">5dp</item>
+    </style>
+
+
+    <!-- Style for Layout -->
+    <style name="layout_light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/colorPrimaryVariant</item>
+    </style>
+
+
+    <!-- Style for EditText -->
+    <style name="text_input_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="edit_text_multiline">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">?attr/colorSecondaryVariant</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lines">6</item>
+        <item name="android:minLines">4</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+
+    <!-- Style for TextView -->
+    <style name="text_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="text_view_small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+    <!-- Style for CardView -->
+    <style name="card_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">?attr/colorSecondaryVariant</item>
+    </style>
+
+
+    <!-- Style for Button -->
+    <style name="btn_authorization_registration" parent="button">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:paddingHorizontal">40dp</item>
+    </style>
+
+    <style name="button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="backgroundTint">?attr/colorSecondaryVariant</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:paddingHorizontal">20dp</item>
+    </style>
+
+    <style name="btn_subscribe" parent="button">
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="btn_unsubscribe" parent="button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:backgroundTint">@color/quicksilver</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="image_btn">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="image_btn_date" parent="image_btn">
+        <item name="android:src">@drawable/ic_date_white</item>
+    </style>
+
+    <style name="image_btn_forward" parent="image_btn">
+        <item name="android:src">@drawable/ic_arrow_forward_white</item>
+    </style>
+
+    <style name="image_btn_search" parent="image_btn">
+        <item name="android:src">@drawable/ic_search_white</item>
+    </style>
+
+    <style name="image_btn_close" parent="image_btn">
+        <item name="android:src">@drawable/ic_close_white</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+    </style>
+
+    <style name="image_btn_message" parent="image_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:backgroundTint">?attr/colorSecondaryVariant</item>
+        <item name="android:src">@drawable/ic_messenger_white</item>
+    </style>
+
+
+    <!-- Style for Photo -->
+    <style name="user_photo_big">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:src">@drawable/profile_photo</item>
+    </style>
+
+    <style name="user_photo_small" parent="toolbar_icon">
+        <item name="android:padding">8dp</item>
+        <item name="android:src">@drawable/profile_photo</item>
+    </style>
+
+    <style name="photo_post_blog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_img_black</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
+
+    <!-- Style for Post/Blog item -->
+    <style name="img_icon_below">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="img_likes" parent="img_icon_below">
+        <item name="android:src">@drawable/ic_like_black</item>
+    </style>
+
+    <style name="img_comments" parent="img_icon_below">
+        <item name="android:src">@drawable/ic_comments_black</item>
+    </style>
+
+    <style name="text_below">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!-- Style for Comments -->
+    <style name="comment_username">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="comment_date">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
 </resources>

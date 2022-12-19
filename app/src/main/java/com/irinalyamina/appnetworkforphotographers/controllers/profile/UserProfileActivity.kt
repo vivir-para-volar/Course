@@ -48,6 +48,10 @@ class UserProfileActivity : AppCompatActivity() {
 
         initialDate()
 
+        binding.btnAddPost.setOnClickListener{
+            startActivity(Intent(this, AddPostActivity::class.java))
+        }
+
         binding.btnFollowers.setOnClickListener {
             btnFollowersOnClickListener(
                 PhotographerService.getCurrentUser().id,
@@ -121,14 +125,6 @@ class UserProfileActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_add_post -> {
-                startActivity(Intent(this, AddPostActivity::class.java))
-                return true
-            }
-            R.id.menu_add_blog -> {
-                startActivity(Intent(this, AddBlogActivity::class.java))
-                return true
-            }
             R.id.menu_edit_profile -> {
                 startActivity(Intent(this, EditProfileActivity::class.java))
                 return true
