@@ -44,8 +44,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_add_comment"
+        style="@style/layout_light"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

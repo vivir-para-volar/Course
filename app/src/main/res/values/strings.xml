@@ -4,6 +4,10 @@
     <string name="no_string_data">-</string>
     <string name="no_int_data">0</string>
 
+    <string name="question">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <!-- Authorization/Registration -->
     <string name="main_fraze">share your memories</string>
     <string name="text_for_registration_question">Don\'t have an account?</string>
@@ -68,7 +72,7 @@
 
     <!-- Home -->
     <string name="tab_news">News</string>
-    <string name="tab_other">Other</string>
+    <string name="tab_others">Others</string>
 
 
     <!-- Search -->

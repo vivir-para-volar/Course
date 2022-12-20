@@ -78,8 +78,13 @@ class PostsAdapter(private val context: Context, private val fromActivity: Strin
                     }
 
                 val builder = AlertDialog.Builder(context)
-                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show()
+                builder.setMessage(context.getString(R.string.question))
+                    .setPositiveButton(context.getString(R.string.yes), dialogClickListener)
+                    .setNegativeButton(
+                        context.getString(R.string.no),
+                        dialogClickListener
+                    )
+                    .show()
             }
         }
 
