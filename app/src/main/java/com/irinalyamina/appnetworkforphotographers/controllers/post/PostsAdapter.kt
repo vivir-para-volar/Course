@@ -62,7 +62,7 @@ class PostsAdapter(private val context: Context, private val fromActivity: Strin
         val post = listPosts[position]
         val postService = PostService(context)
 
-        if (fromActivity == FromActivity.userProfile) {
+        if (fromActivity == FromActivity.userProfile && post.photographerId == PhotographerService.getCurrentUser().id) {
             holder.view.findViewById<ImageButton>(R.id.btn_delete_post).visibility = View.VISIBLE
             holder.view.findViewById<ImageButton>(R.id.btn_delete_post).setOnClickListener {
                 val dialogClickListener =
